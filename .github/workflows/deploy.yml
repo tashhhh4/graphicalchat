@@ -24,6 +24,10 @@ jobs:
             sudo git pull &&
             echo 'After doing git pull!' &&
             echo 'Now we try to rm' &&
+            echo 'We are in:' &&
+            pwd &&
+            echo 'The files here:' &&
+            ls -la &&
             sudo rm docker-compose.yml &&
             echo 'Right after trying to rm!' &&
             sudo mv docker-compose-prod.yml docker-compose.yml &&
