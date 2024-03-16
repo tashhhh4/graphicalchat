@@ -21,6 +21,8 @@ jobs:
             echo 'Just changed directory. now we are in:' &&
             pwd &&
             echo 'Before doing git pull' &&
+            echo 'Running clean and then pull...' &&
+            sudo git clean -df &&
             sudo git pull &&
             echo 'After doing git pull!' &&
             echo 'We will cd again' &&
