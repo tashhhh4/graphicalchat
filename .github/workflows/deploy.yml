@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Push to server
-        uses: tashhhh4/graphicalchat
+        uses: tashhhh4/graphicalchat@master
         with:
           host: ${{secrets.GC_BOX_IP}}
           username: ${{secrets.GC_BOX_USERNAME}}
