@@ -20,7 +20,9 @@ jobs:
             cd /graphicalchat/app &&
             echo 'Just changed directory. now we are in:' &&
             pwd &&
+            echo 'Before doing git pull' &&
             sudo git pull &&
+            echo 'After doing git pull!' &&
             sudo rm docker-compose.yml &&
             sudo mv docker-compose-prod.yml docker-compose.yml &&
             sudo docker compose down &&
