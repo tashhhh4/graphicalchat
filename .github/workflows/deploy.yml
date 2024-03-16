@@ -23,7 +23,9 @@ jobs:
             echo 'Before doing git pull' &&
             sudo git pull &&
             echo 'After doing git pull!' &&
+            echo 'Now we try to rm' &&
             sudo rm docker-compose.yml &&
+            echo 'Right after trying to rm!' &&
             sudo mv docker-compose-prod.yml docker-compose.yml &&
             sudo docker compose down &&
             sudo docker compose up -d
