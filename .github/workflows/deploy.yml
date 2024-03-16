@@ -31,4 +31,4 @@ jobs:
             echo 'We are in:' &&
             pwd &&
             echo 'The files here:' &&
-            ls -la &&
+            ls -la
