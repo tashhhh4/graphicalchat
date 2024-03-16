@@ -22,16 +22,14 @@ jobs:
             pwd &&
             echo 'Before doing git pull' &&
             echo 'Running clean and then pull...' &&
-            sudo git clean -df &&
-            sudo git pull &&
+            sudo git pull -f &&
             echo 'After doing git pull!' &&
             echo 'We will cd again' &&
             cd /graphicalchat/app &&
             echo 'Now we are in' &&
             pwd &&
-            echo 'Now we try to rm' &&
-            echo 'We are in:' &&
-            pwd &&
             echo 'The files here:' &&
             ls -la &&
+            echo 'Now we try to rm and mv' &&
+            sudo rm docker-compose.yml &&
             sudo mv docker-compose-prod.yml docker-compose.yml
