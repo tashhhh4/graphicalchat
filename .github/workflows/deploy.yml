@@ -17,7 +17,7 @@ jobs:
           username: ${{secrets.GC_BOX_USERNAME}}
           password: ${{secrets.GC_BOX_PASSWORD}}
           script: |
-            cd /graphicalchat/app
-            git pull
+            cd /graphicalchat/app &&
+            sudo git pull
 #            docker compose down
 #            docker compose up -d
