@@ -32,8 +32,3 @@ jobs:
             pwd &&
             echo 'The files here:' &&
             ls -la &&
-            sudo rm docker-compose.yml &&
-            echo 'Right after trying to rm!' &&
-            sudo mv docker-compose-prod.yml docker-compose.yml &&
-            sudo docker compose down &&
-            sudo docker compose up -d
