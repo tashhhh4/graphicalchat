@@ -17,12 +17,16 @@ jobs:
           username: ${{secrets.GC_BOX_USERNAME}}
           password: ${{secrets.GC_BOX_PASSWORD}}
           script: |
-            cd /graphicalchat/app &&
+            cd /graphicalchat &&
             echo 'Just changed directory. now we are in:' &&
             pwd &&
             echo 'Before doing git pull' &&
             sudo git pull &&
             echo 'After doing git pull!' &&
+            echo 'We will cd again' &&
+            cd /graphicalchat/app &&
+            echo 'Now we are in' &&
+            pwd &&
             echo 'Now we try to rm' &&
             echo 'We are in:' &&
             pwd &&
