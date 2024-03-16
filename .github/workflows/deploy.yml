@@ -18,8 +18,10 @@ jobs:
           password: ${{secrets.GC_BOX_PASSWORD}}
           script: |
             cd /graphicalchat/app &&
+            echo 'Just changed directory. now we are in:' &&
+            pwd &&
             sudo git pull &&
-            sudo rm -f docker-compose.yml &&
+            sudo rm docker-compose.yml &&
             sudo mv docker-compose-prod.yml docker-compose.yml &&
             sudo docker compose down &&
             sudo docker compose up -d
