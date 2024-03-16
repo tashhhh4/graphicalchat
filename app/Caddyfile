@@ -1,0 +1,5 @@
+graphicalchat.app {
+    bind {$ADDRESS}
+    proxy / web:8000
+    tls tash@artoftash.com
+}
