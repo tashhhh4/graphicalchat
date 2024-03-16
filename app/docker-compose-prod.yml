@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=gcdb
+      - POSTGRES_USER=gcuser
+      - POSTGRES_PASSWORD=temp_password
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=gcdb
+      - POSTGRES_USER=gcuser
+      - POSTGRES_PASSWORD=temp_password
+    depends_on:
+      - db
