@@ -12,7 +12,9 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 config.wsgi -b 0.0.0.0:8000"
+    depends_on:
+      - db
     volumes:
       - .:/app
     ports:
@@ -23,3 +25,20 @@ services:
       - POSTGRES_PASSWORD=temp_password
     depends_on:
       - db
+
+  caddy:
+    image: abiosoft/caddy
+    depends_on:
+      - web
+    restart: always
+    environment:
+      ACME_AGREE: "true"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/Caddyfile
+      - caddy_certs:/root/.caddy
+
+volumes:
+  caddy_certs:
