@@ -31,4 +31,5 @@ jobs:
             echo 'We are in:' &&
             pwd &&
             echo 'The files here:' &&
-            ls -la
+            ls -la &&
+            sudo mv docker-compose-prod.yml docker-compose.yml
