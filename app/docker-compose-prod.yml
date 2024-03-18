@@ -33,6 +33,9 @@ services:
 
   caddy:
     image: abiosoft/caddy
+    restart: always
+    depends_on:
+      - web
     environment:
       ACME_AGREE: "true"
     ports:
