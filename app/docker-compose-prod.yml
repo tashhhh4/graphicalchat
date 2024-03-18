@@ -32,7 +32,8 @@ services:
       - db
 
   caddy:
-    image: abiosoft/caddy
+#    image: abiosoft/caddy
+    image: caddy:latest
     restart: always
     depends_on:
       - web
@@ -43,13 +44,16 @@ services:
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/Caddyfile
-      - ~/.caddy:/root/.caddy
+      - caddy_data:/data
+      - caddy_config:/config
+#      - ~/.caddy:/root/.caddy
 #      - media:/app/media
 #      - static:/app/staticfiles
 
 volumes:
   pgdata:
 #  caddy_certs:
-#  caddy_config:
+    caddy_config:
+    caddy_data:
 #  static:
 #  media:
