@@ -21,6 +21,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      - DJANGO_SETTINGS_MODULE
       - POSTGRES_NAME=gcdb
       - POSTGRES_USER=gcuser
       - POSTGRES_PASSWORD=temp_password
