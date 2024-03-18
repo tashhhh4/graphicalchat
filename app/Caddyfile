@@ -1,6 +1,7 @@
 graphicalchat.app {
     bind 0.0.0.0
-    proxy / web:8000
+    reverse_proxy web:8000
+    log / stdout "{combined}"
     tls tash@artoftash.com
 }
 
