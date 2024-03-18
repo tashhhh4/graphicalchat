@@ -30,6 +30,7 @@ services:
       - POSTGRES_PASSWORD
     depends_on:
       - db
+      - caddy
 
   caddy:
     image: abiosoft/caddy
