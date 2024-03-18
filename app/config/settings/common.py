@@ -16,12 +16,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$wuabrhoy=t%7iaf&(a$=rbud(^k9-h6ce2)#$2m2g-75jz+85'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Secret Key
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# Allowed Hosts
 ALLOWED_HOSTS = ['localhost', '192.168.5.52']
 
 # Application definition
