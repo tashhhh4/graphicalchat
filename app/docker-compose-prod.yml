@@ -33,7 +33,6 @@ services:
 
   caddy:
     image: abiosoft/caddy
-    restart: always
     environment:
       ACME_AGREE: "true"
     ports:
