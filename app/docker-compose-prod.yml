@@ -18,8 +18,8 @@ services:
     command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 config.wsgi -b 0.0.0.0:8000"
     volumes:
       - .:/app
-      - static:/app/staticfiles
-      - media:/app/media
+#      - static:/app/staticfiles
+#      - media:/app/media
     ports:
       - "8000:8000"
     environment:
@@ -42,18 +42,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - .:/srv
       - ./Caddyfile:/etc/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-      - media:/app/media
-      - static:/app/staticfiles
+      - ~/.caddy:/root/.caddy
+#      - media:/app/media
+#      - static:/app/staticfiles
 
 volumes:
   pgdata:
-  caddy_certs:
-  caddy_data:
-    external: true
-  caddy_config:
-  static:
-  media:
+#  caddy_certs:
+#  caddy_config:
+#  static:
+#  media:
