@@ -16,9 +16,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 # Secret Key
 SECRET_KEY = os.environ.get('SECRET_KEY')
 

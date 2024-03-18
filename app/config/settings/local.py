@@ -4,3 +4,6 @@ STATIC_ROOT = 'static/'
 
 # Allowed Hosts
 ALLOWED_HOSTS = ['*']
+
+# Debug = True
+DEBUG = True
