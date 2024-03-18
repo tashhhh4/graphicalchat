@@ -4,9 +4,9 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=gcdb
-      - POSTGRES_USER=gcuser
-      - POSTGRES_PASSWORD=temp_password
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
 
   web:
     build: .
@@ -17,8 +17,8 @@ services:
       - "8000:8000"
     environment:
       - DJANGO_SETTINGS_MODULE
-      - POSTGRES_NAME=gcdb
-      - POSTGRES_USER=gcuser
-      - POSTGRES_PASSWORD=temp_password
+      - POSTGRES_NAME
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
     depends_on:
       - db
