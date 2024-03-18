@@ -22,11 +22,7 @@ DEBUG = True
 # Secret Key
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Allowed Hosts
-ALLOWED_HOSTS = ['localhost', '192.168.5.52']
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
