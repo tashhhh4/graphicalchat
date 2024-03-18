@@ -1,0 +1,19 @@
+=====================================================================
+# SET ENVIRONMENT VARIABLES FOR LOCAL DEVELOPMENT
+#
+# Create the file ".env" and make sure it is in the "app" directory.
+# Fill in the following variables:
+---------------------------------------------------------------------
+
+# any long string of random letters and numbers and symbols
+# or use a secret generating command
+# Just use a different secret key for each local server and
+# the live production server.
+
+SECRET_KEY=value
+
+# This make the local development server use the settings defined in
+# /app/config/settings/common.py plus the specific settings defined in
+# /app/config/settings/local.py
+
+DJANGO_SETTINGS_MODULE=config.settings.local
