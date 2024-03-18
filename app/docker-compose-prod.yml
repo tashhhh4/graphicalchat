@@ -54,6 +54,7 @@ volumes:
   pgdata:
   caddy_certs:
   caddy_data:
+    external: true
   caddy_config:
   static:
   media:
