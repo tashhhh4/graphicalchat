@@ -6,12 +6,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 """
 
-# Comments
-
 import os
-
 from pathlib import Path
 
+
+# WSGI Application
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -66,8 +66,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
