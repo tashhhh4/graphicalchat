@@ -53,7 +53,7 @@ services:
 volumes:
   pgdata:
 #  caddy_certs:
-    caddy_config:
-    caddy_data:
+  caddy_config:
+  caddy_data:
 #  static:
 #  media:
