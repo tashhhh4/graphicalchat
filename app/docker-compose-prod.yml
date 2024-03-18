@@ -34,8 +34,6 @@ services:
 
   caddy:
     image: abiosoft/caddy
-    depends_on:
-      - "web"
     restart: always
     environment:
       ACME_AGREE: "true"
