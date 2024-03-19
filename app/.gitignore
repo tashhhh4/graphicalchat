@@ -1,3 +1,4 @@
 data/*
 staticfiles/*
 .env
+node_modules/*
