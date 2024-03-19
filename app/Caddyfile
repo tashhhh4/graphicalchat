@@ -6,7 +6,7 @@ www.graphicalchat.app {
   redir https://graphicalchat.app{uri}
 }
 
-handle_path /static/* {
+handle_path /staticfiles/* {
     root * /static/
     file_server
 }
