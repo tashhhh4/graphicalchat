@@ -1,9 +1,7 @@
-https://graphicalchat.app {
-    bind 0.0.0.0
-    reverse_proxy web:8000
-    tls tash@artoftash.com
+graphicalchat.app {
+  reverse_proxy web:8000
 }
 
-https://www.graphicalchat.app {
-    redir https://graphicalchat.app{uri}
+www.graphicalchat.app {
+  redir https://graphicalchat.app{uri}
 }

@@ -32,16 +32,16 @@ services:
       - db
 
   caddy:
-#    image: abiosoft/caddy
-    image: caddy:latest
-    restart: always
-    depends_on:
-      - web
-    environment:
-      ACME_AGREE: "true"
+    image: caddy:2.7.6
+    restart: unless-stopped
+#    depends_on:
+#      - web
+#    environment:
+#      ACME_AGREE: "true"
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - .:/srv
@@ -56,5 +56,6 @@ volumes:
 #  caddy_certs:
   caddy_config:
   caddy_data:
+    external: true
 #  static:
 #  media:
