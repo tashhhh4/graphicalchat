@@ -18,7 +18,7 @@ services:
     command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --workers=3 config.wsgi -b 0.0.0.0:8000"
     volumes:
       - .:/app
-#      - static:/app/staticfiles
+      - static:/app/staticfiles
 #      - media:/app/media
     ports:
       - "8000:8000"
