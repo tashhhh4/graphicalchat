@@ -2,7 +2,7 @@ graphicalchat.app {
   reverse_proxy web:8000
 
   handle_path /static/* {
-    root * /app/staticfiles
+    root * /static
     file_server
   }
 }
