@@ -34,10 +34,6 @@ services:
   caddy:
     image: caddy:2.7.6
     restart: unless-stopped
-#    depends_on:
-#      - web
-#    environment:
-#      ACME_AGREE: "true"
     ports:
       - "80:80"
       - "443:443"
@@ -47,15 +43,13 @@ services:
       - .:/srv
       - caddy_data:/data
       - caddy_config:/config
-#      - ~/.caddy:/root/.caddy
 #      - media:/app/media
 #      - static:/app/staticfiles
 
 volumes:
   pgdata:
-#  caddy_certs:
   caddy_config:
   caddy_data:
     external: true
-#  static:
+  static:
 #  media:
