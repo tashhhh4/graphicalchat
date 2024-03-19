@@ -1,12 +1,12 @@
 graphicalchat.app {
   reverse_proxy web:8000
+
+  handle_path /static/* {
+    root * /app/staticfiles
+    file_server
+}
 }
 
 www.graphicalchat.app {
   redir https://graphicalchat.app{uri}
-}
-
-handle_path /staticfiles/* {
-    root * /static/
-    file_server
 }
