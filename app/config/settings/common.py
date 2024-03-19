@@ -4,6 +4,7 @@ Common Django settings for config project.
 https://docs.djangoproject.com/en/5.0/topics/settings/
 https://docs.djangoproject.com/en/5.0/ref/settings/
 https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+https://docs.djangoproject.com/en/5.0/howto/static-files/
 """
 
 import os
@@ -14,7 +15,7 @@ from pathlib import Path
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Secret Key
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -107,11 +108,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

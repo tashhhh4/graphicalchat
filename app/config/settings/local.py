@@ -1,6 +1,12 @@
 from config.settings.common import *
 
-STATIC_ROOT = 'static/'
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    "/static/",
+]
 
 # Allowed Hosts
 ALLOWED_HOSTS = ['*']
