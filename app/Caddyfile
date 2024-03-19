@@ -4,7 +4,7 @@ graphicalchat.app {
   handle_path /static/* {
     root * /app/staticfiles
     file_server
-}
+  }
 }
 
 www.graphicalchat.app {
