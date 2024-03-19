@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'common.apps.CommonConfig',
     'gcmain.apps.GcmainConfig',
     'gclogin.apps.GcloginConfig',
     'database.apps.DatabaseConfig',
@@ -62,6 +63,16 @@ TEMPLATES = [
     },
 ]
 
+# URL that triggers the retrieval of static files
+STATIC_URL = "static/"
+
+# Folders where the local development server will
+#      search for static files
+STATICFILES_DIRS = [
+    BASE_DIR / 'common' / 'static' / 'common',
+    BASE_DIR / 'gclogin' / 'static' / 'gclogin',
+    BASE_DIR / 'gcmain' / 'static' / 'gcmain',
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
