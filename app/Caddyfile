@@ -5,3 +5,8 @@ graphicalchat.app {
 www.graphicalchat.app {
   redir https://graphicalchat.app{uri}
 }
+
+handle_path /static/* {
+    root * /static/
+    file_server
+}

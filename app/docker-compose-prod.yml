@@ -44,7 +44,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
 #      - media:/app/media
-#      - static:/app/staticfiles
+      - static:/static
 
 volumes:
   pgdata:
