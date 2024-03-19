@@ -5,6 +5,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 https://docs.djangoproject.com/en/5.0/ref/settings/
 https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 https://docs.djangoproject.com/en/5.0/howto/static-files/
+https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 """
 
 import os
@@ -14,11 +15,15 @@ from pathlib import Path
 # WSGI Application
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / 'subdir'
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+ROOT_URLCONF = 'common.urls'
+
 
 # Secret Key
 SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -45,7 +50,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'common.urls'
 
 TEMPLATES = [
     {
@@ -63,6 +67,7 @@ TEMPLATES = [
     },
 ]
 
+
 # URL that triggers the retrieval of static files
 STATIC_URL = "static/"
 
@@ -74,9 +79,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'gcmain' / 'static' / 'gcmain',
 ]
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -90,8 +94,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -109,8 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -121,6 +121,4 @@ USE_TZ = True
 
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
