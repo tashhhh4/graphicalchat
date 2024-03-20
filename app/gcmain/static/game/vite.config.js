@@ -5,7 +5,7 @@ export default defineConfig({
         outDir: '.',
         assetsDir: '.',
         rollupOptions: {
-            input: 'main.js',
+            input: 'material.js',
             output: {
                 entryFileNames: 'bundle.js'
             }

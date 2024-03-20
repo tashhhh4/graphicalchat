@@ -2,11 +2,8 @@
  * This exercise displays a spinning green cube and a red textbox,
  * made with regular css floating over the 3D display.
  */
-console.log('loaded main.js');
 
-console.log('right before three import');
-import * as THREE from './node_modules/three';
-console.log('right after three import');
+import * as THREE from 'three';
 //import WebGL from 'three/addons/capabilities/WebGL.js';
 
 

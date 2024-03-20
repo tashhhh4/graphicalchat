@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'common/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'gcmain/page-base.css' %}">
+    <link rel="stylesheet" href="{% static 'gcmain/ui-chat.css' %}">
+    <title>Graphical Chat - Avatar Chat World</title>
+</head>
+<body>
+    <div class="site-wrapper">
+
+        <!--3D GRAPHICS-->
+        <div id="error_message_wrapper"></div>
+
+        <!--CHATROOM-->
+        <div id="chatroom" class="widget chatroom">
+            <div class="chatroom-header">
+                <span>Chatroom Name</span>
+                <span>[chat opts]</span>
+                <span>[login opts]</span>
+            </div>
+            <div id="chatroom_main_content"></div>
+            <div class="chatroom-input-bar">
+                <form action="">
+                    <input type="text">
+                    <button id="chat_send_button">[&gt;&gt;]</button>
+                </form>
+            </div>
+        </div>
+
+        <!--CUSTOMIZE WIDGET-->
+        <div id="room_settings_panel">
+            <button id="room_settings_button">[customize]</button>
+        </div>
+
+    </div>
+</body>
+</html>
