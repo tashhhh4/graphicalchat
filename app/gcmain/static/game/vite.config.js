@@ -2,10 +2,10 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
     build: {
-        outDir: 'gcmain/static/gcmain',
+        outDir: '.',
         assetsDir: '.',
         rollupOptions: {
-            input: 'material.js',
+            input: 'test.js',
             output: {
                 entryFileNames: 'bundle.js'
             }

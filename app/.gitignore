@@ -2,5 +2,4 @@ data/*
 staticfiles/*
 .env
 
-game/node_modules
-game/node_modules/*
+gcmain/static/game/node_modules/*
