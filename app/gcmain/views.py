@@ -1,15 +1,10 @@
 from django.shortcuts import render
 
-# temp: test
-from pathlib import Path
 
 def mainAppView(request):
 
-    # temp: test
-    print("Inside gcmain Main App View")
+    # temp
+    context = {};
+    context['django_server_message'] = 'This is a message from views.py  We are running the template using our django development server on port 8000.'
 
-    print("Path concatenation Examples...")
-
-    print(Path("a") / Path("b") / Path("c/"))
-
-    return render(request, 'index.html')
+    return render(request, 'gcmain/index.html', context)

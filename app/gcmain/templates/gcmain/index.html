@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Testing the &quot;Game&quot; Build Setup</title>
+</head>
+<body>
+
+  <!-- TEMP -->
+  <p style="font-weight:bold;">{{django_server_message}}</p>
+
+  <!-- WebGL Render -->
+  <div id="error_message_wrapper"></div>
+ <!-- <script type="module" src="/bundle.js"></script>-->
+ <!-- <script src="{% static 'gcmain/bundle.js' %}"></script> -->
+
+ <!-- Test Script -->
+ <script src="{% static 'game/test.js' %}"></script>
+
+</body>
+</html>

@@ -77,6 +77,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'common' / 'static' / 'common',
     BASE_DIR / 'gclogin' / 'static' / 'gclogin',
     BASE_DIR / 'gcmain' / 'static' / 'gcmain',
+    BASE_DIR / 'gcmain' / 'static' / 'game',
 ]
 
 
