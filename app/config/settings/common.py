@@ -81,6 +81,15 @@ STATICFILES_DIRS = [
 ]
 
 
+# Assets Storage
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID');
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY');
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME');
+AWS_ASSETS_LOCATION = 'gc-assets' # 'models'?
+
+ASSETS_URL = '/assets/'
+ASSETS_ROOT = BASE_DIR / 'assets'
+
 # Database
 DATABASES = {
     'default': {

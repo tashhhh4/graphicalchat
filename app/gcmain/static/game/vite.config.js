@@ -7,7 +7,7 @@ export default defineConfig({
         rollupOptions: {
             input: 'material.js',
             output: {
-                entryFileNames: 'bundle.js'
+                entryFileNames: 'debug.js'
             }
         }
     }

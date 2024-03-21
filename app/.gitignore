@@ -1,5 +1,7 @@
 data/*
 staticfiles/*
+assets/*
+gcmain/static/game/assets/*
 .env
 
 gcmain/static/game/node_modules/*

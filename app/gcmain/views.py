@@ -1,10 +1,15 @@
 from django.shortcuts import render
-
+from django.conf import settings
 
 def mainAppView(request):
-
-    # temp
     context = {};
-    context['django_server_message'] = 'This is a message from views.py  We are running the template using our django on port 8000.'
+    context['ASSETS_URL'] = settings.ASSETS_URL
 
     return render(request, 'gcmain/index.html', context)
+
+
+def debugPageView(request):
+    context = {};
+    context['ASSETS_URL'] = settings.ASSETS_URL
+
+    return render(request, 'gcmain/debug.html', context)

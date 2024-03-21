@@ -1,5 +1,5 @@
-#from django.conf import settings
-#from django.conf.urls.static import static
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include, path
 from django.contrib import admin
 from django.conf.urls.static import static
@@ -14,5 +14,7 @@ urlpatterns = [
     # Django Admin App
     path('admin/', admin.site.urls),
 ]
-# Static Files
-#urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Serve Assets Files from "/assets" during development
+if settings.DEBUG:
+    urlpatterns += static(settings.ASSETS_URL, document_root=settings.ASSETS_ROOT)

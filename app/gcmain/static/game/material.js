@@ -46,7 +46,7 @@ const loader_2 = new GLTFLoader();
 loader_1.load(
 
     // Resource URL
-    'assets/cute_cube_1.obj',
+    assets.models.RedCube,
 
     // onLoad
     function (object) {
@@ -75,7 +75,7 @@ loader_1.load(
         loader_2.load(
 
             // Resource URL
-            'assets/sad_cube.glb',
+            assets.models.BlueCube,
 
             // onLoad
             function (gltf) {
@@ -142,7 +142,6 @@ scene.add(cube_3);
 scene.add(cube_4);
 scene.add(ambient_light);
 scene.add(directional_light);
-scene.add(directional_light);
 camera.position.z = 5;
 
 // Render the scene
@@ -160,17 +159,4 @@ function animate() {
 }
 
 /** PAGE INIT **/
-
-// Check Compatibility
-//      This doesn't seem to work, at least the error is not triggered by
-//      launching the browser with 3D disabled. The error is not triggered
-//      in all circumstances where the 3D app does not load/display, so we'll
-//      ignore this feature and move on with the tutorial for now...
-/*if (WebGL.isWebGLAvailable()) {
- animate();
-} else {
-    const warning = WebGL.getWebGLErrorMessage();
-    document.getElementById('error_message_wrapper').appendChild(warning);
-}*/
-
 //animate();
