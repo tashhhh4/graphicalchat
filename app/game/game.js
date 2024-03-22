@@ -37,8 +37,20 @@ let sceneContents = [
     }
 ];
 
+// Get specific model helper function
+function findSceneContentsByName(name) {
+    for (const item of sceneContents) {
+        if (item.name === name) {
+            return item;
+        }
+    }
+}
+
 // Loaded State (0/100)
 let objectsLoaded = 0;
+
+// Moved objects around after loading them
+let sceneIsSet = false;
 
 // Content (Geometry, Material, Mesh, Loaders, Light)
 function loadSceneContents() {
@@ -57,6 +69,7 @@ function loadSceneContents() {
             function(gltf) {
                 const model = gltf.scene.children[0];
                 model.name = item.name;
+                item.model = model;
                 scene.add(model);
                 countFiles += 1;
                 objectsLoaded = countFiles / totalFiles * 100;
@@ -87,11 +100,20 @@ camera.position.z = 16;
 camera.position.y = 6;
 camera.position.x = 0;
 camera.rotateX(-0.5);
+const stickWomanPosZ = 10;
 
 // Process logic and render the scene
 function run() {
     if (objectsLoaded === 100) {
         requestAnimationFrame(run);
+
+        // Manual adjustment of object position after loading
+        if (sceneIsSet == false) {
+            const avatar = findSceneContentsByName("Stick Woman");
+            console.log('Found stick woman:');
+            console.log(avatar);
+            sceneIsSet = true;
+        }
 
         renderer.render(scene, camera);
     } else {
