@@ -6,9 +6,12 @@ export default defineConfig({
         outDir: 'gcmain/static/game',
         assetsDir: '.',
         rollupOptions: {
-            input: 'material.js',
+            input: {
+                debug: 'material.js',
+                bundle: 'game.js'
+            },
             output: {
-                entryFileNames: 'debug.js'
+                entryFileNames: '[name].js'
             }
         }
     }
