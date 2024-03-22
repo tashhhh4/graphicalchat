@@ -3,5 +3,7 @@ staticfiles/*
 assets/*
 gcmain/static/game/assets/*
 .env
+.vite/*
 
+game/node_modules/*
 gcmain/static/game/node_modules/*
