@@ -23,7 +23,6 @@ services:
     volumes:
       - .:/app
       - static:/app/staticfiles
-#      - media:/app/media
     ports:
       - "8000:8000"
     environment:
@@ -32,6 +31,7 @@ services:
       - POSTGRES_NAME
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+      - ASSETS_STORAGE_URL
     depends_on:
       - db
 
@@ -44,10 +44,8 @@ services:
       - "443:443/udp"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-#      - .:/srv
       - caddy_data:/data
       - caddy_config:/config
-#      - media:/app/media
       - static:/static
 
 volumes:
@@ -56,4 +54,3 @@ volumes:
   caddy_data:
     external: true
   static:
-#  media:
