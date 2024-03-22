@@ -26,8 +26,13 @@ document.body.appendChild(canvas);
 // Scene Contents
 let sceneContents = [
     {
-        name: 'hubFloor',
+        name: 'Hub Floor',
         file: assets.models.LargeFloor,
+        model: null,
+    },
+    {
+        name: 'Stick Woman',
+        file: assets.models.StickWoman,
         model: null,
     }
 ];
@@ -76,7 +81,12 @@ const directional_light = new THREE.DirectionalLight(0xffffee, .8);
 //scene.add(cube_3);
 scene.add(ambient_light);
 scene.add(directional_light);
-camera.position.z = 5;
+
+// That will do for now.
+camera.position.z = 16;
+camera.position.y = 6;
+camera.position.x = 0;
+camera.rotateX(-0.5);
 
 // Process logic and render the scene
 function run() {
