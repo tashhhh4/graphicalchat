@@ -28,9 +28,7 @@ class Entity {
         this.file = file;
         this.model = null;
         this.velocity = new Velocity(0, 0);
-        this.move = function() {
-            console.log('We want to move the ' + this.name + ' using the vector ' + '(speed='+this.velocity.speed+', angle='+this.velocity.angle+')');
-            
+        this.move = function() {            
             const radians = this.velocity.angle * (Math.PI / 180);
             const speed = this.velocity.speed;
 
@@ -54,9 +52,13 @@ class Velocity {
         this.angle = angle;
     }
     static UP = 0;
+    static UPRIGHT = 45;
     static RIGHT = 90;
+    static RIGHTDOWN = 135;
     static DOWN = 180;
+    static DOWNLEFT = 225;
     static LEFT = 270;
+    static LEFTUP = 315;
 }
 
 /** Define 3D Models to be loaded into the scene **/
@@ -84,14 +86,22 @@ let objectsLoaded = 0;
 // Moved objects around after loading them
 let sceneIsSet = false;
 
+// Keep track of held-down keys
+const pressedKeys = {};
+
 // Gameplay constants
 const AVATAR_WALK_SPEED = .5;
+
+// Keyboard key names
+const ARROW_UP = 38;
+const ARROW_DOWN = 40;
+const ARROW_LEFT = 37;
+const ARROW_RIGHT = 39;
 
 // Content (Geometry, Material, Mesh, Loaders, Light)
 function loadSceneContents() {
     const totalFiles = sceneContents.length;
     let countFiles = 0;
-    console.log('Total Files to load:', totalFiles);
 
     for (const item of sceneContents) {
         const loader = new GLTFLoader();
@@ -137,36 +147,73 @@ camera.position.x = 0;
 camera.rotateX(-0.5);
 const stickWomanPosZ = 10;
 
+
 /** User Input Controls **/
 // Keyboard Controls
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('keyup', handleKeyUp);
 
 function handleKeyDown(event) {
-    switch(event.key) {
+    // Pressed Keys
+    pressedKeys[event.keyCode] = true;
 
-        case 'ArrowUp':
+    // Velocity
+    const keys = Object.keys(pressedKeys);
+    if (keys.length === 1) {
+
+        const k = keys[0];
+        if (k == ARROW_UP) {
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.UP;
-            break;
-        case 'ArrowRight':
+        } else
+        if (k == ARROW_RIGHT) {
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.RIGHT;
-            break;
-        case 'ArrowDown':
+        } else
+        if (k == ARROW_DOWN) {
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.DOWN;
-            break;
-        case 'ArrowLeft':
+        } else
+        if (k == ARROW_LEFT) {
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.LEFT;
-            break;
+        }
+
+    } else if (keys.length === 2) {
+        const k1 = keys[0];
+        const k2 = keys[1];
+
+        // UP-RIGHT
+        if ((k1 == ARROW_UP && k2 == ARROW_RIGHT) || (k1 == ARROW_RIGHT && k2 == ARROW_UP)) {
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.UPRIGHT;
+        }
+        // RIGHT-DOWN
+        if ((k1 == ARROW_RIGHT && k2 == ARROW_DOWN) || (k1 == ARROW_DOWN && k2 == ARROW_RIGHT)) {
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.RIGHTDOWN;
+        }
+        // DOWN-LEFT
+        if ((k1 == ARROW_DOWN && k2 == ARROW_LEFT) || (k1 == ARROW_LEFT && k2 == ARROW_DOWN)) {
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.DOWNLEFT;
+        }
+        // LEFT-UP
+        if ((k1 == ARROW_LEFT && k2 == ARROW_UP) || (k1 == ARROW_UP && k2 == ARROW_LEFT)) {
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.LEFTUP;
+        }
     }
 }
 
-function handleKeyUp() {
+function handleKeyUp(event) {
+    // Pressed Keys
+    delete pressedKeys[event.keyCode];
+    
+    // Velocity
     myAvatar.velocity.speed = 0;
 }
+
 
 // Gameplay & animation logic functions
 function updateEntityPositions() {
@@ -176,6 +223,7 @@ function updateEntityPositions() {
     avatar.move();
 }
 
+
 // Process logic and render the scene
 function run() {
     if (objectsLoaded === 100) {
@@ -184,8 +232,6 @@ function run() {
         // Manual adjustment of object position after loading
         if (sceneIsSet == false) {
             const avatar = findSceneContentsByName("Stick Woman");
-            console.log('Found stick woman:');
-            console.log(avatar);
             sceneIsSet = true;
         }
 
