@@ -140,6 +140,7 @@ const stickWomanPosZ = 10;
 /** User Input Controls **/
 // Keyboard Controls
 document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('keyup', handleKeyUp);
 
 function handleKeyDown(event) {
     switch(event.key) {
@@ -147,35 +148,32 @@ function handleKeyDown(event) {
         case 'ArrowUp':
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.UP;
-            // myAvatar.move();
             break;
         case 'ArrowRight':
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.RIGHT;
-            // myAvatar.move();
             break;
         case 'ArrowDown':
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.DOWN;
-            // myAvatar.move();
             break;
         case 'ArrowLeft':
             myAvatar.velocity.speed = AVATAR_WALK_SPEED;
             myAvatar.velocity.angle = Velocity.LEFT;
-            // myAvatar.move();
             break;
     }
 }
 
+function handleKeyUp() {
+    myAvatar.velocity.speed = 0;
+}
 
 // Gameplay & animation logic functions
 function updateEntityPositions() {
-    // later list of Entities, go through each entity and detect changes?
+    // TODO: list of Entities, go through each entity and detect changes?
     const avatar = findSceneContentsByName("Stick Woman");
 
     avatar.move();
-
-    //avatar.model.position.x += 1;
 }
 
 // Process logic and render the scene
