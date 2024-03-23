@@ -21,20 +21,49 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const canvas = renderer.domElement;
 document.body.appendChild(canvas);
 
+// Entity Class
+class Entity {
+    constructor(name, file) {
+        this.name = name;
+        this.file = file;
+        this.model = null;
+        this.velocity = new Velocity(0, 0);
+        this.move = function() {
+            console.log('We want to move the ' + this.name + ' using the vector ' + '(speed='+this.velocity.speed+', angle='+this.velocity.angle+')');
+            
+            const radians = this.velocity.angle * (Math.PI / 180);
+            const speed = this.velocity.speed;
+
+            const deltaX = Math.sin(radians) * speed;
+            const deltaZ = Math.cos(radians) * speed * -1;
+
+            this.model.position.x += deltaX;
+            this.model.position.z += deltaZ;
+
+        }
+    }
+}
+
+// Velocity Vector
+/* Angle Unit: degrees
+ * decreasing z when angle = 0
+ */
+class Velocity {
+    constructor(speed, angle) {
+        this.speed = speed;
+        this.angle = angle;
+    }
+    static UP = 0;
+    static RIGHT = 90;
+    static DOWN = 180;
+    static LEFT = 270;
+}
 
 /** Define 3D Models to be loaded into the scene **/
 // Scene Contents
 let sceneContents = [
-    {
-        name: 'Hub Floor',
-        file: assets.models.LargeFloor,
-        model: null,
-    },
-    {
-        name: 'Stick Woman',
-        file: assets.models.StickWoman,
-        model: null,
-    }
+    new Entity('Hub Floor',   assets.models.LargeFloor),
+    new Entity('Stick Woman', assets.models.StickWoman),
 ];
 
 // Define which avatar is controlled by the user
@@ -114,26 +143,38 @@ document.addEventListener('keydown', handleKeyDown);
 
 function handleKeyDown(event) {
     switch(event.key) {
-        case 'ArrowLeft':
-            myAvatar.model.position.x -= AVATAR_WALK_SPEED;
+
+        case 'ArrowUp':
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.UP;
+            // myAvatar.move();
             break;
         case 'ArrowRight':
-            myAvatar.model.position.x += AVATAR_WALK_SPEED;
-            break;
-        case 'ArrowUp':
-            myAvatar.model.position.z -= AVATAR_WALK_SPEED;
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.RIGHT;
+            // myAvatar.move();
             break;
         case 'ArrowDown':
-            myAvatar.model.position.z += AVATAR_WALK_SPEED;
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.DOWN;
+            // myAvatar.move();
+            break;
+        case 'ArrowLeft':
+            myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+            myAvatar.velocity.angle = Velocity.LEFT;
+            // myAvatar.move();
             break;
     }
 }
 
 
-// Gameplay logic functions
+// Gameplay & animation logic functions
 function updateEntityPositions() {
     // later list of Entities, go through each entity and detect changes?
     const avatar = findSceneContentsByName("Stick Woman");
+
+    avatar.move();
+
     //avatar.model.position.x += 1;
 }
 
