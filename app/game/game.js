@@ -37,6 +37,9 @@ let sceneContents = [
     }
 ];
 
+// Define which avatar is controlled by the user
+let myAvatar = findSceneContentsByName('Stick Woman');
+
 // Get specific model helper function
 function findSceneContentsByName(name) {
     for (const item of sceneContents) {
@@ -51,6 +54,9 @@ let objectsLoaded = 0;
 
 // Moved objects around after loading them
 let sceneIsSet = false;
+
+// Gameplay constants
+const AVATAR_WALK_SPEED = .5;
 
 // Content (Geometry, Material, Mesh, Loaders, Light)
 function loadSceneContents() {
@@ -102,6 +108,35 @@ camera.position.x = 0;
 camera.rotateX(-0.5);
 const stickWomanPosZ = 10;
 
+/** User Input Controls **/
+// Keyboard Controls
+document.addEventListener('keydown', handleKeyDown);
+
+function handleKeyDown(event) {
+    switch(event.key) {
+        case 'ArrowLeft':
+            myAvatar.model.position.x -= AVATAR_WALK_SPEED;
+            break;
+        case 'ArrowRight':
+            myAvatar.model.position.x += AVATAR_WALK_SPEED;
+            break;
+        case 'ArrowUp':
+            myAvatar.model.position.z -= AVATAR_WALK_SPEED;
+            break;
+        case 'ArrowDown':
+            myAvatar.model.position.z += AVATAR_WALK_SPEED;
+            break;
+    }
+}
+
+
+// Gameplay logic functions
+function updateEntityPositions() {
+    // later list of Entities, go through each entity and detect changes?
+    const avatar = findSceneContentsByName("Stick Woman");
+    //avatar.model.position.x += 1;
+}
+
 // Process logic and render the scene
 function run() {
     if (objectsLoaded === 100) {
@@ -114,6 +149,9 @@ function run() {
             console.log(avatar);
             sceneIsSet = true;
         }
+
+        // Update entity positions
+        updateEntityPositions();
 
         renderer.render(scene, camera);
     } else {
