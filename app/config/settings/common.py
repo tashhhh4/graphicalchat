@@ -48,8 +48,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'common.middleware.PasswordLockMiddleware',
 ]
 
+# Temporary universal alpha testing password
+ALPHA_PASSWORD = os.environ.get('ALPHA_PASSWORD')
 
 TEMPLATES = [
     {

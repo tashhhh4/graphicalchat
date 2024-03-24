@@ -1,1 +1,6 @@
 /* This is gclogin.css */
+body{
+    font-family: sans-serif;
+    color: #fff;
+    background-color: navy;
+}
