@@ -11,17 +11,13 @@ def unlockAlphaPassword(request):
         password = request.POST.get('password')
         if password == settings.ALPHA_PASSWORD:
             request.session['password_ok'] = True
-            return redirect('')
+            return redirect('mainAppView')
         else:
-            dj_messages.error(request, 'The password was wrong. Please try again. If you would like an invitation, please contact the developer at tash@artoftash.com')
-            return redirect('alpha_password_view')
+            return redirect('alphaPasswordFailedView')
 
 def alphaPasswordView(request):
-    if request.method == 'POST':
-        password = request.POST.get('password')
-        if password == 'temp_password':
-            request.session['password_ok'] = True
-            return HttpResponseRedirect('/')
-        else:
-            dj_messages.error(request, 'The password was wrong. Please try again. If you would like an invitation, please contact the developer at tash@artoftash.com')
+    return render(request, 'gclogin/alpha_password_lock.html')
+
+def alphaPasswordFailedView(request):
+    dj_messages.error(request, 'The password was wrong. Please try again. If you would like an invitation, please contact the developer at tash@artoftash.com')
     return render(request, 'gclogin/alpha_password_lock.html')
