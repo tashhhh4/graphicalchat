@@ -11,6 +11,7 @@ POSTGRES_DB=gcdb
 POSTGRES_NAME=gcdb
 POSTGRES_USER=gcuser
 POSTGRES_PASSWORD=long_cool_password
+ALPHA_PASSWORD=password_from_developer
 
 ======================================================================
 # SET ENVIRONMENT VARIABLES ON THE PRODUCTION server
@@ -27,3 +28,4 @@ POSTGRES_NAME=gcdb
 POSTGRES_USER=gcuser
 POSTGRES_PASSWORD=long_different_password
 ASSET_STORAGE_URL=[base url of a publicly readable file storage directory]
+ALPHA_PASSWORD=password_from_developer

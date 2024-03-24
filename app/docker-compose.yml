@@ -22,5 +22,6 @@ services:
       - POSTGRES_NAME
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+      - ALPHA_PASSWORD
     depends_on:
       - db

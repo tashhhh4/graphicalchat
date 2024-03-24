@@ -32,6 +32,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - ASSETS_STORAGE_URL
+      - ALPHA_PASSWORD
     depends_on:
       - db
 
