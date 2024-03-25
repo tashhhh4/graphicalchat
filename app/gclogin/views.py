@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import IntegrityError
 
 from django.contrib.auth.models import User
+from database.models import GCUser
 
 
 # Generic Password Lock on site
@@ -43,6 +44,10 @@ def createAccount(request):
             # Create User entry
             user = User(username=username, password=password, email=email)
             user.save()
+
+            gcuser = GCUser(user=user)
+            gcuser.save()
+            
         except IntegrityError:
             return redirect('createAccountDuplicateUsernameView')
 
@@ -58,4 +63,3 @@ def loginView(request):
 def loginNewView(request):
     dj_messages.success(request, 'Your account was created successfully! Please log in now with the credentials you created.')
     return render(request, 'gclogin/login.html')
-

@@ -11,5 +11,4 @@ urlpatterns = [
     path('create-account/errors/username-duplicate/', views.createAccountDuplicateUsernameView, name='createAccountDuplicateUsernameView'),
     path('login/', views.loginView, name='loginView'),
     path('login/success/new/', views.loginNewView, name='loginNewView'),
-
 ]
