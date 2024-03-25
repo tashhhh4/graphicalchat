@@ -7,5 +7,7 @@ urlpatterns = [
     path('alpha-password/failed/', views.alphaPasswordFailedView, name='alphaPasswordFailedView'),
 
     path('create-account/', views.createAccountView, name='createAccountView'),
+    path('create-account-f/', views.createAccount, name='createAccount'),
     path('login/', views.loginView, name='loginView'),
+    path('login/new/', views.loginNewView, name='loginNewView')
 ]

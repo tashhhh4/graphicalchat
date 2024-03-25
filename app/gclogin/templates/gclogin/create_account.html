@@ -3,12 +3,15 @@
 {% block title %}Graphical Chat App - Welcome! :D{% endblock %}
 
 {% block main %}
-<form class="yellow-form">
+<form action="{% url 'createAccount' %}" class="yellow-form" method="post">
+  {% csrf_token %}
   <h1>Create Account</h1>
   <p class="help-text">Your email address: [user email]</p>
+  <input type="hidden" name="email" value="tash@artoftash.com">
+  <input type="hidden" name="invitation_code" value="12345">
   <div class="field">
     <label for="username_input">username</label>
-    <input id="username_input" type="text">
+    <input id="username_input" type="text" name="username">
   </div>
   <div class="field">
     <label for="password_input">password</label>
@@ -16,7 +19,7 @@
   </div>
   <div class="field">
     <label for="password2_input">repeat password</label>
-    <input type="password2_input" type="password" name="password2">
+    <input id="password2_input" type="password" name="password2">
   </div>
   <input type="submit" value="Submit" class="red-submit">
 </form>

@@ -10,6 +10,17 @@
 </head>
 <body>
 
+<!-- Django Middleware Messages -->
+{% if messages %}
+<div class="django-messages">
+{% for message in messages %}
+<div class="message{% if message.tags %} {{message.tags}}{% endif %}">
+{{message}}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
 <header class="site-header"></header>
 
 {% block main %}{% endblock %}
