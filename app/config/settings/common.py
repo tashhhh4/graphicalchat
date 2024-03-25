@@ -54,6 +54,9 @@ MIDDLEWARE = [
 # Temporary universal alpha testing password
 ALPHA_PASSWORD = os.environ.get('ALPHA_PASSWORD')
 
+# Login Required
+LOGIN_URL = '/authentication/login/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
