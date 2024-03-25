@@ -6,7 +6,7 @@
     olive green: #5f7733
     very light yellow: #fff8d1
     medium yellow: #ffe003
-    red: #ff4000
+    red: #ff0000
     very dark red: #400000
     lightest red: #ffb1d2
     lighter red: #ff9dc6
@@ -21,6 +21,7 @@ body {
   justify-content: space-between;
   align-items: center;
   box-shadow: inset 0 0 90px 120px #ffffff44;
+  font-family: "ArialRoundedMT", Verdana, sans-serif;
 }
 
 /*** DJANGO MESSAGES ***/
@@ -46,8 +47,9 @@ body {
     color: #5f7733;
 }
 .yellow-form .red-help-text {
-    color: #ff4000;
+    color: #ff0000;
     text-align: center;
+    margin: 6px 0;
 }
 .yellow-form .field {
     margin: 12px 0;

@@ -1,5 +1,13 @@
 /* common.css */
-/* RESET */
+
+/*** FONTS ***/
+@font-face {
+    font-family: ArialRoundedMT;
+    src: url('ARLRDBD.ttf');
+}
+
+
+/*** RESET ***/
 * {
     margin: 0;
     padding: 0;
