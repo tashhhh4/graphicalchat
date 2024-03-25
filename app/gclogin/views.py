@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages as dj_messages
 from django.conf import settings
 
+from django.db import IntegrityError
+
 from django.contrib.auth.models import User
 
 
@@ -31,22 +33,29 @@ def createAccountView(request):
 def createAccount(request):
     if(request.method == 'POST'):
         
-        # Get data
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        email = request.POST.get('email')
-        invitation_code = request.POST.get('invitation_code')
+        try:
+            # Get data
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            email = request.POST.get('email')
+            invitation_code = request.POST.get('invitation_code')
 
-        # Create User entry
-        user = User(username=username, password=password, email=email)
-        user.save()
+            # Create User entry
+            user = User(username=username, password=password, email=email)
+            user.save()
+        except IntegrityError:
+            return redirect('createAccountDuplicateUsernameView')
 
         return redirect('loginNewView')
+
+def createAccountDuplicateUsernameView(request):
+    dj_messages.error(request, 'This username is already registered. Please try a different one.')
+    return render(request, 'gclogin/create_account.html')
 
 def loginView(request):
     return render(request, 'gclogin/login.html')
 
 def loginNewView(request):
     dj_messages.success(request, 'Your account was created successfully! Please log in now with the credentials you created.')
-    return render(request, 'gclogin/alpha_password_lock.html')
     return render(request, 'gclogin/login.html')
+
