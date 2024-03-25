@@ -1,0 +1,18 @@
+{% extends 'gclogin/base.html' %}
+
+{% block title %}Graphical Chat App - Welcome back, please sign in...{% endblock %}
+
+{% block main %}
+<form class="yellow-form">
+  <h1>Sign In</h1>
+  <div class="field">
+    <label for="username_input">username</label>
+    <input id="username_input" type="text">
+  </div>
+  <div class="field">
+    <label for="password_input">password</label>
+    <input id="password_input" type="password" name="password">
+  </div>
+  <input type="submit" value="Submit" class="blue-submit">
+</form>
+{% endblock %}

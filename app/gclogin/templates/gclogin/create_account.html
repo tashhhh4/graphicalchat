@@ -1,0 +1,23 @@
+{% extends 'gclogin/base.html' %}
+
+{% block title %}Graphical Chat App - Welcome! :D{% endblock %}
+
+{% block main %}
+<form class="yellow-form">
+  <h1>Create Account</h1>
+  <p class="help-text">Your email address: [user email]</p>
+  <div class="field">
+    <label for="username_input">username</label>
+    <input id="username_input" type="text">
+  </div>
+  <div class="field">
+    <label for="password_input">password</label>
+    <input id="password_input" type="password" name="password">
+  </div>
+  <div class="field">
+    <label for="password2_input">repeat password</label>
+    <input type="password2_input" type="password" name="password2">
+  </div>
+  <input type="submit" value="Submit" class="red-submit">
+</form>
+{% endblock %}
