@@ -1,4 +1,93 @@
-/* This is gclogin.css */
+/* gclogin.css */
+/*
+    Palette
+    -------
+    dark green: #0b3000
+    olive green: #5f7733
+    very light yellow: #fff8d1
+    medium yellow: #ffe003
+    red: #ff4000
+    very dark red: #400000
+    lightest red: #ffb1d2
+    lighter red: #ff9dc6
+    light red: #ff70aa
+ */
 body {
   background-image: url('background.png');
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: inset 0 0 90px 120px #ffffff44;
+}
+
+/*** DJANGO MESSAGES ***/
+.django-messages {
+    background-color: #fff;
+    color: #000;
+    padding: 6px 8px;
+    position: absolute;
+    top: 20px;
+}
+
+/*** FORM ***/
+.yellow-form {
+    border: 2px solid #0b3000;
+    border-radius: 30px;
+    padding: 18px;
+    background: linear-gradient(#fff8d1, #ffe003);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.yellow-form .subtitle {
+    color: #5f7733;
+}
+.yellow-form .red-help-text {
+    color: #ff4000;
+    text-align: center;
+}
+.yellow-form .field {
+    margin: 12px 0;
+}
+.yellow-form input[type="text"], .yellow-form input[type="password"] {
+    border: 2px solid #0b3000;
+    border-radius: 10px;
+    padding: 6px 8px;
+    font-size: 14px;
+    margin-right: 8px;
+}
+.yellow-form .red-submit {
+    background: linear-gradient(#ffb1d2, #ff9dc6, #ff9dc6, #ff70aa);
+    color: #400000;
+    font-size: 14px;
+    padding: 6px 8px;
+    border: 2px solid #400000;
+    border-radius: 10px;
+}
+
+/*** FOOTER ***/
+.site-footer {
+    color: #0b3000;
+    height: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    font-size: 20px;
+    font-weight: bold;
+}
+.site-footer span:hover {
+    background-color: #fff;
+}
+.site-footer a {
+    margin: 0 16px;
+    background-color: #ffffff99;
+    border-radius: 10px;
+    padding: 6px 8px;
+    color: #0b3000;
+}
+.site-footer a:hover {
+    background-color: #fff;
 }
