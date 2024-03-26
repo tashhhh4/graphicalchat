@@ -59,3 +59,19 @@ How to develop the Django app (handles auth, chat, user save data, and friends l
    cases, just make sure your local project reflects the most recent updates, delete the conflicting files on the
    server, and then manually run `git pull` and `docker-compose -f docker-compose-prod.yml down` and
    `docker-compose -f docker-compose-prod.yml up -d` on the server.
+
+
+How to create a superuser account in django
+-------------------------------------------
+* be in the same directory that the docker-compose file is located at.
+
+    docker compose exec web python manage.py createsuperuser
+
+    > You will be prompted for username, email, and password
+
+
+How to invite users to test the app
+-----------------------------------
+* Go to the website at: "[localhost:8000/graphicalchat.app]/admin
+* Click the link "Invite Users"
+* Type in an email address and Submit the form.
