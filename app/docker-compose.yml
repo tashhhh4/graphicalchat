@@ -23,5 +23,9 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - ALPHA_PASSWORD
+      - EMAIL_PASSWORD
+      - EMAIL_HOST
+      - EMAIL_PORT
+      - EMAIL_USER
     depends_on:
       - db

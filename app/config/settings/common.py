@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'management.apps.ManagementConfig',
     'common.apps.CommonConfig',
     'gcmain.apps.GcmainConfig',
     'gclogin.apps.GcloginConfig',
@@ -137,3 +138,11 @@ USE_TZ = True
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Email Settings
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
+EMAIL_HOST_USER = os.environ['EMAIL_USER']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_USE_TLS = True

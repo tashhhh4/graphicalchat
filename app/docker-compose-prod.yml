@@ -33,6 +33,10 @@ services:
       - POSTGRES_PASSWORD
       - ASSETS_STORAGE_URL
       - ALPHA_PASSWORD
+      - EMAIL_PASSWORD
+      - EMAIL_HOST
+      - EMAIL_PORT
+      - EMAIL_USER
     depends_on:
       - db
 

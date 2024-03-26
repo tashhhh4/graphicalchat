@@ -18,7 +18,10 @@ urlpatterns = [
         # /auth/logout   .....   name = 'logout'
 
     # Django Admin App
-    path('admin/', admin.site.urls),
+    path('djadmin/', admin.site.urls),
+
+    # Actual Admin App
+    path('admin/', include('management.urls')),
 ]
 
 # Serve Assets Files from "/assets" during development

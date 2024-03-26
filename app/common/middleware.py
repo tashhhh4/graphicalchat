@@ -30,7 +30,10 @@ class PasswordLockMiddleware:
 
             # If the URI is `/admin/...`
             elif request.path.startswith('/admin'):
-                print('WE ARE TRYING TO GO TO THE ADMIN SITE.')
+                return self.get_response(request)
+
+            # If the URI is `/djadmin/...`
+            elif request.path.startswith('/djadmin'):
                 return self.get_response(request)
 
             # If the URI is any other page from the website
