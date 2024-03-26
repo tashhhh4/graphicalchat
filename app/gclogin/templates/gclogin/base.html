@@ -10,6 +10,11 @@
 </head>
 <body>
 
+<!-- Useful Information -->
+{% block debug %}
+{% include 'common/debug.html' %}
+{% endblock debug %}
+
 <!-- Django Middleware Messages -->
 {% if messages %}
 <div class="django-messages">

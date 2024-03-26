@@ -19,3 +19,26 @@ ul, li {
 a {
     text-decoration: none;
 }
+
+
+/*** DEBUG WIDGET ***/
+.debug-widget {
+    position: absolute;
+    color: #fff;
+    top: 4px;
+    left: 6px;
+    z-index: 20;
+}
+.debug-widget td:nth-child(1) {
+    text-align: right;
+    color: #ffff00;
+}
+.debug-widget-background {
+    background-color: #00000099;
+    width: 300px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}

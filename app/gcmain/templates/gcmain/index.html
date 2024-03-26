@@ -10,6 +10,11 @@
 </head>
 <body>
 
+  <!-- Optional Helpful Information -->
+  {% block debug %}
+  {% include 'common/debug.html' %}
+  {% endblock %}
+
   <!-- Assets Table -->
   <script>
     const assets = {
