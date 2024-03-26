@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 import os
 from pathlib import Path
 
-
 # WSGI Application
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -49,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'common.middleware.PasswordLockMiddleware',
+    #'common.middleware.PasswordLockMiddleware',
 ]
 
 # Temporary universal alpha testing password
