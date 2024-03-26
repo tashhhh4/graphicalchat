@@ -23,3 +23,7 @@ def adminLogin(request):
 def adminLogout(request):
     logout(request)
     return redirect('adminMenuView')
+
+# Invite Alpha/Beta testers
+def invitationView(request):
+    return render(request, 'management/invitation.html')

@@ -1,0 +1,25 @@
+<style>
+    * {
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    ul, li {
+      list-style: none;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+    }
+    .logout input[type="submit"] {
+        background: none;
+        border: none;
+        color: #000;
+    }
+    </style>
+    
+    <header>
+      <span>Logged in: {{user}} (superuser)</span>
+      <a href="{% url 'adminMenuView' %}">Main Menu</a>
+      <form class="logout" method="post" action="{% url 'adminLogout' %}">{% csrf_token %}<input type="submit" value="logout"></form>
+    </header>
+
+{% block main %}{% endblock %}
