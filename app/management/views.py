@@ -6,6 +6,8 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from gclogin.invitations import generate_code
+from database.models import Invitation
+from django.db import IntegrityError
 
 @permission_required(perm='is_superuser', login_url='/admin/login')
 def adminMenuView(request):
@@ -38,7 +40,17 @@ def invitationView(request):
 def sendInvitation(request):
 
     email = request.POST.get('email')
-    code = generate_code()
+
+    # Create an Invitation
+    got_code = False
+    while got_code is False:
+        code = generate_code()
+        try:
+            invitation = Invitation(email=email, code=code)
+            invitation.save()
+            got_code = True
+        except IntegrityError:
+            pass
 
     # Send Mail
     The_Subject = 'Invitation to my awesome web app!'
