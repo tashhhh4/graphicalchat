@@ -4,9 +4,9 @@
 
 {% block main %}
 <form action="{% url 'createAccount' %}" class="yellow-form" method="post">
-  {% csrf_token %}
   <h1>Create Account</h1>
   <p class="help-text">Your email address: [user email]</p>
+  {% csrf_token %}
   <input type="hidden" name="email" value="tash@artoftash.com">
   <input type="hidden" name="invitation_code" value="12345">
   <div class="field">

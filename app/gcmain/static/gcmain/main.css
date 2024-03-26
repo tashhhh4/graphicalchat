@@ -1,0 +1,12 @@
+.logout-button {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+}
+.logout-button a {
+    color: #fff;
+}
+
+body {
+    font-family: "ArialRoundedMT", Verdana, sans-serif;
+}

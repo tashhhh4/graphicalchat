@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <link rel="shortcut icon" href="{% static 'common/favicon.png' %}" type="image/png">
   <link rel="stylesheet" href="{% static 'common/common.css' %}">
+  <link rel="stylesheet" href="{% static 'gcmain/main.css' %}">
   <title>Graphical Chat App - Index Page and static JS files Served by Django</title>
 </head>
 <body>
@@ -27,6 +28,11 @@
 
   <!-- 3D Game Main Script -->
   <script type="module" src="{% static 'game/bundle.js' %}"></script>
+
+  <!-- Logout Button -->
+  <div class="logout-button">
+    <a href="{% url 'logout' %}">Logout</a>
+  </div>
 
 </body>
 </html>
