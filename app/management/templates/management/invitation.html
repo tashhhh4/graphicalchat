@@ -1,7 +1,7 @@
 {% extends 'management/base.html' %}
 
 {% block main %}
-<form action="" method="post">
+<form action="{% url 'sendInvitation' %}" method="post">
   {% csrf_token %}
   <label>Enter Email Address</label><br>
   <input type="email" name="email" size="80"><br><br>

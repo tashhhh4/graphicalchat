@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from gclogin.invitations import generate_code
 
 @permission_required(perm='is_superuser', login_url='/admin/login')
 def adminMenuView(request):
@@ -25,5 +30,34 @@ def adminLogout(request):
     return redirect('adminMenuView')
 
 # Invite Alpha/Beta testers
+@permission_required(perm='is_superuser', login_url='/admin/login')
 def invitationView(request):
     return render(request, 'management/invitation.html')
+
+@permission_required(perm='is_superuser', login_url='/admin/login')
+def sendInvitation(request):
+
+    email = request.POST.get('email')
+    code = generate_code()
+
+    # Send Mail
+    The_Subject = 'Invitation to my awesome web app!'
+    Formatted_Message = render_to_string('email/invitation.html', {'email': email, 'code': code})
+    Plain_Message = strip_tags(Formatted_Message)
+    The_Sender = settings.EMAIL_HOST_USER
+    The_Recipient = request.POST.get('email')
+
+    send_mail(
+        subject = The_Subject,
+        message = Plain_Message,
+        html_message = Formatted_Message,
+        from_email = The_Sender,
+        recipient_list = [The_Recipient],
+        fail_silently = False
+    )
+
+    return redirect('invitationSentView')
+
+@permission_required(perm='is_superuser', login_url='/admin/login')
+def invitationSentView(request):
+    return render(request, 'management/invitation_done.html')
