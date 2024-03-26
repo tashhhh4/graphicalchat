@@ -55,7 +55,12 @@ MIDDLEWARE = [
 ALPHA_PASSWORD = os.environ.get('ALPHA_PASSWORD')
 
 # Login Required
-LOGIN_URL = '/authentication/login/'
+# PASSWORD_URL = '/auth/'
+LOGIN_URL = 'login'
+
+# Login Redirect
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {

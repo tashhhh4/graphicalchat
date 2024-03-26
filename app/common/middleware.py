@@ -19,13 +19,18 @@ class PasswordLockMiddleware:
                 return redirect('alphaPasswordView')
 
             # If the URI is one of the `urlpatterns` involved in using the password
-            elif request.path == '/authentication/alpha-password/':
+            elif request.path == '/auth/alpha-password/':
                 return self.get_response(request)
 
-            elif request.path == '/authentication/alpha-password/failed/':
+            elif request.path == '/auth/alpha-password/failed/':
                 return self.get_response(request)
 
-            elif request.path == '/authentication/alpha-password/unlock/':
+            elif request.path == '/auth/alpha-password/unlock/':
+                return self.get_response(request)
+
+            # If the URI is `/admin/...`
+            elif request.path.startswith('/admin'):
+                print('WE ARE TRYING TO GO TO THE ADMIN SITE.')
                 return self.get_response(request)
 
             # If the URI is any other page from the website

@@ -30,7 +30,8 @@ def alphaPasswordFailedView(request):
 
 
 # Create account and login
-def createAccountView(request):
+def createAccountInvitationView(request):
+    context = {'invitation_email': 'tash@artoftash.com'}
     return render(request, 'gclogin/create_account.html')
 
 def createAccount(request):
@@ -53,47 +54,47 @@ def createAccount(request):
         except IntegrityError:
             return redirect('createAccountDuplicateUsernameView')
 
-        return redirect('loginNewView')
+        return redirect(settings.LOGIN_URL)
 
 def createAccountDuplicateUsernameView(request):
     dj_messages.error(request, 'This username is already registered. Please try a different one.')
     return render(request, 'gclogin/create_account.html')
 
-def loginView(request):
-    print('INSIDE THE LOGIN VIEW')
-    print('THE USER:')
-    print(request.user)
-    return render(request, 'gclogin/login.html')
+# def loginView(request):
+#     print('INSIDE THE LOGIN VIEW')
+#     print('THE USER:')
+#     print(request.user)
+#     return render(request, 'gclogin/login.html')
 
-def loginNewView(request):
-    dj_messages.success(request, 'Your account was created successfully! Please log in now with the credentials you created.')
-    return render(request, 'gclogin/login.html')
+# def loginNewView(request):
+#     dj_messages.success(request, 'Your account was created successfully! Please log in now with the credentials you created.')
+#     return render(request, 'gclogin/login.html')
 
-def loginWrongView(request):
-    dj_messages.error(request, 'Wrong username or password. Please try again.')
-    return render(request, 'gclogin/login.html')
+# def loginWrongView(request):
+#     dj_messages.error(request, 'Wrong username or password. Please try again.')
+#     return render(request, 'gclogin/login.html')
 
-def login(request):
-    print('INSIDE THE LOGIN FUNCTION')
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    print('USERNAME RECEIVED:')
-    print('USERNAME')
-    user = authenticate(request, username=username, password=password)
-    print('THE USER:')
-    print(user)
-    if user is not None:
-        login(request, user)
-        return redirect('mainAppView')
-    else:
-        return redirect('loginWrongView')
+# def login(request):
+#     print('INSIDE THE LOGIN FUNCTION')
+#     username = request.POST.get('username')
+#     password = request.POST.get('password')
+#     print('USERNAME RECEIVED:')
+#     print('USERNAME')
+#     user = authenticate(request, username=username, password=password)
+#     print('THE USER:')
+#     print(user)
+#     if user is not None:
+#         login(request, user)
+#         return redirect('mainAppView')
+#     else:
+#         return redirect('loginWrongView')
 
 
-def logout(request):
-    print('INSIDE THE LOGOUT FUNCTION')
-    print('THE USER...')
-    print(request.user)
-    print('AUTHENTICATED?')
-    print(request.user.is_authenticated)
-    logout(request)
-    return redirect('loginView')
+# def logout(request):
+#     print('INSIDE THE LOGOUT FUNCTION')
+#     print('THE USER...')
+#     print(request.user)
+#     print('AUTHENTICATED?')
+#     print(request.user.is_authenticated)
+#     logout(request)
+#     return redirect('loginView')

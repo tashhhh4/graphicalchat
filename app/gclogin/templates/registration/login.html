@@ -1,0 +1,12 @@
+{% extends 'gclogin/base.html' %}
+
+{% block title %}Graphical Chat App - Welcome back! Please sign in...{% endblock %}
+
+{% block main %}
+<form class="yellow-form" method="post">
+  <h1>Sign In</h1>
+  {% csrf_token %}
+  {{ form }}
+  <input class="blue-submit" type="submit" value="Submit">
+</form>
+{% endblock %}

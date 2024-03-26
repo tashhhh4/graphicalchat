@@ -9,7 +9,7 @@ def mainAppView(request):
 
     return render(request, 'gcmain/index.html', context)
 
-@login_required
+# @login_required
 def debugPageView(request):
     context = {};
     context['ASSETS_URL'] = settings.ASSETS_URL

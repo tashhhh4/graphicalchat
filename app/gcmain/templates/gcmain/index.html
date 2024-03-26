@@ -35,9 +35,10 @@
   <script type="module" src="{% static 'game/bundle.js' %}"></script>
 
   <!-- Logout Button -->
-  <div class="logout-button">
-    <a href="{% url 'logout' %}">Logout</a>
-  </div>
+  <form class="logout-button" action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Sign Out">
+  </form>
 
 </body>
 </html>
