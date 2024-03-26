@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+import { generateCollisionMap } from './generateCollisionMap.js';
 
 /** SETUP THE 3D ENVIRONMENT **/
 // Scene
@@ -27,6 +28,7 @@ class Entity {
         this.name = name;
         this.file = file;
         this.model = null;
+        this.collisionMap = null;
         this.velocity = new Velocity(0, 0);
         this.move = function() {            
             const radians = this.velocity.angle * (Math.PI / 180);
@@ -37,8 +39,14 @@ class Entity {
 
             this.model.position.x += deltaX;
             this.model.position.z += deltaZ;
-
         }
+    }
+}
+
+class FloorEntity extends Entity {
+    constructor(name, file) {
+        super(name, file);
+        this.collisionMap = null;
     }
 }
 
@@ -64,7 +72,7 @@ class Velocity {
 /** Define 3D Models to be loaded into the scene **/
 // Scene Contents
 let sceneContents = [
-    new Entity('Hub Floor',   assets.models.LargeFloor),
+    new FloorEntity('Hub Floor', assets.models.IrregularFloor),
     new Entity('Stick Woman', assets.models.StickWoman),
 ];
 
@@ -112,9 +120,15 @@ function loadSceneContents() {
 
             // onLoad : Function
             function(gltf) {
+                
+                // Define Entity Object
                 const model = gltf.scene.children[0];
                 model.name = item.name;
                 item.model = model;
+                // const map = generateCollisionMap(model);
+                item.collisionMap = map;
+
+                // Track additions
                 scene.add(model);
                 countFiles += 1;
                 objectsLoaded = countFiles / totalFiles * 100;
