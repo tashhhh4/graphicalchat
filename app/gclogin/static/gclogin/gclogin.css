@@ -36,6 +36,24 @@ body {
     top: 20px;
 }
 
+.p-message {
+    background-color: #fff;
+    color: #000;
+    padding: 6px 8px;
+}
+.message-block {
+    text-align: center;
+}
+.message-block > * {
+    margin: 20px 0;
+}
+
+/*** PAGE MAIN ***/
+main.password-reset * {
+    margin: 12px 0;
+    text-align: center;
+}
+
 /*** FORM ***/
 .yellow-form {
     border: 2px solid #0b3000;
@@ -47,27 +65,37 @@ body {
     align-items: center;
     max-width: 300px;
 }
+.yellow-form.password-change {
+    max-width: 450px;
+}
 .yellow-form .subtitle {
     color: #5f7733;
+}
+.yellow-form .helptext {
+    font-size: 12px;
+    width: 210px;
 }
 .yellow-form .red-help-text {
     color: #ff0000;
     text-align: center;
     margin: 6px 0;
 }
-.yellow-form div {
+.yellow-form div {  
     margin: 12px 0;
     display: flex;
     flex-direction: column;
 }
-.yellow-form input[type="text"], .yellow-form input[type="password"] {
+.yellow-form input[type="text"], .yellow-form input[type="password"],
+.transparent-form input[type="email"] {
     border: 2px solid #0b3000;
     border-radius: 10px;
     padding: 6px 8px;
     font-size: 14px;
     margin-right: 8px;
 }
-.yellow-form .red-submit {
+.transparent-form input[type="email"] { width: 350px; }
+
+.red-submit {
     background: linear-gradient(#ffb1d2, #ff9dc6, #ff9dc6, #ff70aa);
     color: #400000;
     font-size: 14px;
@@ -83,6 +111,13 @@ body {
     border: 2px solid #010749;
     border-radius: 10px;
     font-weight: bold;
+}
+.password-help-text {
+    color: #454fc2;
+    margin-top: 8px;
+}
+.password-help-text:hover {
+    color: #8b95ff;
 }
 
 /*** FOOTER ***/

@@ -51,8 +51,6 @@ def createAccount(request):
 
             # Check valid invitation
             invitation = Invitation.objects.filter(email=email, code=invitation_code)
-            print('invitation query result: ')
-            print(invitation)
 
             if invitation is not None:
 

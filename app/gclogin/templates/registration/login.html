@@ -8,5 +8,6 @@
   {% csrf_token %}
   {{ form }}
   <input class="blue-submit" type="submit" value="Submit">
+  <a href="{% url 'password_reset' %}" class="password-help-text">Forgot your password?</a>
 </form>
 {% endblock %}

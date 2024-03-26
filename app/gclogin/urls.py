@@ -10,5 +10,4 @@ urlpatterns = [
     path('create-account/f/', views.createAccount, name='createAccount'),
     path('create-account/errors/username-duplicate/', views.createAccountDuplicateUsernameView, name='createAccountDuplicateUsernameView'),
     path('create-account/errors/invalid-invitation/', views.createAccountInvalidInvitationView, name='createAccountInvalidInvitationView'),
-
 ]
