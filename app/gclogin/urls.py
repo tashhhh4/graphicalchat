@@ -9,11 +9,6 @@ urlpatterns = [
     path('create-account/invitation/', views.createAccountInvitationView, name='createAccountInvitationView'),
     path('create-account/f/', views.createAccount, name='createAccount'),
     path('create-account/errors/username-duplicate/', views.createAccountDuplicateUsernameView, name='createAccountDuplicateUsernameView'),
-    # path('login/', views.loginView, name='loginView'),
-    # path('login/f/', views.login, name='login'),
-    # path('login/success/new/', views.loginNewView, name='loginNewView'),
-    # path('login/errors/wrong/', views.loginWrongView, name='loginWrongView'),
-
-    # path('logout/f/', views.logout, name='logout')
+    path('create-account/errors/invalid-invitation/', views.createAccountInvalidInvitationView, name='createAccountInvalidInvitationView'),
 
 ]

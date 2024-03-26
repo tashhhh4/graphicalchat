@@ -8,6 +8,7 @@ from django.utils.html import strip_tags
 from gclogin.invitations import generate_code
 from database.models import Invitation
 from django.db import IntegrityError
+from config.utils import get_absolute_base_url
 
 @permission_required(perm='is_superuser', login_url='/admin/login')
 def adminMenuView(request):
@@ -40,6 +41,7 @@ def invitationView(request):
 def sendInvitation(request):
 
     email = request.POST.get('email')
+    base_url = get_absolute_base_url(request)
 
     # Create an Invitation
     got_code = False
@@ -54,7 +56,12 @@ def sendInvitation(request):
 
     # Send Mail
     The_Subject = 'Invitation to my awesome web app!'
-    Formatted_Message = render_to_string('email/invitation.html', {'email': email, 'code': code})
+    message_context = {
+        'email': email,
+        'code': code,
+        'base_url': base_url,
+    }
+    Formatted_Message = render_to_string('email/invitation.html', message_context)
     Plain_Message = strip_tags(Formatted_Message)
     The_Sender = settings.EMAIL_HOST_USER
     The_Recipient = request.POST.get('email')
