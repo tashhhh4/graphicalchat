@@ -11,6 +11,9 @@
     lightest red: #ffb1d2
     lighter red: #ff9dc6
     light red: #ff70aa
+    very dark blue: #010749
+    pale blue: #9ba4ff
+    deep blue: #2235ff
  */
 body {
   background-image: url('background.png');
@@ -70,6 +73,15 @@ body {
     padding: 6px 8px;
     border: 2px solid #400000;
     border-radius: 10px;
+}
+.yellow-form .blue-submit {
+    background: linear-gradient(#b2b9ff, #2235ff);
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 8px;
+    border: 2px solid #010749;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 /*** FOOTER ***/
