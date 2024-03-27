@@ -48,11 +48,6 @@ body {
     margin: 20px 0;
 }
 
-/*** PAGE MAIN ***/
-main.password-reset * {
-    margin: 12px 0;
-    text-align: center;
-}
 
 /*** FORM ***/
 .yellow-form {
@@ -103,7 +98,7 @@ main.password-reset * {
     border: 2px solid #400000;
     border-radius: 10px;
 }
-.yellow-form .blue-submit {
+.blue-submit {
     background: linear-gradient(#b2b9ff, #2235ff);
     color: #fff;
     font-size: 14px;
@@ -119,6 +114,33 @@ main.password-reset * {
 .password-help-text:hover {
     color: #8b95ff;
 }
+
+
+/*** PAGE MAIN ***/
+main.password-reset * {
+    margin: 12px 0;
+    text-align: center;
+}
+
+main.password-reset-change .yellow-form {
+    max-width: 800px;
+}
+main.password-reset-change .yellow-form .helptext {
+    width: 300px;
+}
+main.password-reset-change .yellow-form input[type="password"] {
+    width: 300px;
+}
+
+main.password-reset-complete * {
+    margin: 12px auto;
+    text-align: center;
+}
+main.password-reset-complete a {
+    display: block;
+    width: fit-content;
+}
+
 
 /*** FOOTER ***/
 .site-footer {

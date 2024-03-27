@@ -8,16 +8,8 @@ urlpatterns = [
     # Main App
     path('', include('gcmain.urls')),
 
-    # Login Sequence
+    # Login, Logout, User Account, Invitation
     path('auth/', include('gclogin.urls')),
-
-    # Built-in Auth Views & URLs
-    path('auth/', include('django.contrib.auth.urls')),
-
-        # auth/login/    .....   name = 'login'
-        # auth/logout/   .....   name = 'logout'
-        # auth/password_reset/
-        # auth/password_reset/done/
 
     # Django Admin App
     path('djadmin/', admin.site.urls),
