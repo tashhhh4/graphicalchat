@@ -18,6 +18,10 @@ urlpatterns = [
         views.createAccount,
         name='createAccount'),
     path(
+        'create-account/errors/email-duplicate/',
+        views.createAccountDuplicateEmailView,
+        name='createAccountDuplicateEmailView'),
+    path(
         'create-account/errors/username-duplicate/',
         views.createAccountDuplicateUsernameView,
         name='createAccountDuplicateUsernameView'),

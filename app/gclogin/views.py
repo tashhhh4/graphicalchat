@@ -49,6 +49,11 @@ def createAccount(request):
             email = request.POST.get('email')
             invitation_code = request.POST.get('invitation_code')
 
+            # Check for duplicate email (migration too hard waaah)
+            existing_users_with_email = User.objects.filter(email=email)
+            if existing_users_with_email is not None:
+                return redirect('createAccountDuplicateEmailView')
+
             # Check valid invitation
             invitation = Invitation.objects.filter(email=email, code=invitation_code)
 
@@ -72,6 +77,10 @@ def createAccount(request):
             return redirect('createAccountDuplicateUsernameView')
 
         return redirect(settings.LOGIN_URL)
+
+def createAccountDuplicateEmailView(request):
+    dj_messages.error(request, 'Sorry, this email address is already registered.')
+    return render(request, 'gclogin/create_account.html')
 
 def createAccountDuplicateUsernameView(request):
     dj_messages.error(request, 'This username is already registered. Please try a different one.')
