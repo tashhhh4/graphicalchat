@@ -26,18 +26,18 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Application definition
 INSTALLED_APPS = [
+    'management.apps.ManagementConfig',
+    'common.apps.CommonConfig',
+    'gcmain.apps.GcmainConfig',
+    'gclogin.apps.GcloginConfig',
+    'database.apps.DatabaseConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'management.apps.ManagementConfig',
-    'common.apps.CommonConfig',
-    'gcmain.apps.GcmainConfig',
-    'gclogin.apps.GcloginConfig',
-    'database.apps.DatabaseConfig',
 ]
 
 MIDDLEWARE = [

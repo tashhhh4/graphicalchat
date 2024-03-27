@@ -14,8 +14,10 @@ urlpatterns = [
     # Built-in Auth Views & URLs
     path('auth/', include('django.contrib.auth.urls')),
 
-        # /auth/login    .....   name = 'login'
-        # /auth/logout   .....   name = 'logout'
+        # auth/login/    .....   name = 'login'
+        # auth/logout/   .....   name = 'logout'
+        # auth/password_reset/
+        # auth/password_reset/done/
 
     # Django Admin App
     path('djadmin/', admin.site.urls),
