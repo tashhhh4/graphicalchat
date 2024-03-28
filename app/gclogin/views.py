@@ -51,8 +51,10 @@ def createAccount(request):
 
             # Check for duplicate email (migration too hard waaah)
             existing_users_with_email = User.objects.filter(email=email)
-            if existing_users_with_email is not None:
+            if len(existing_users_with_email) is not 0:
                 return redirect('createAccountDuplicateEmailView')
+
+            print('Ok, we passed the duplicate email check')
 
             # Check valid invitation
             invitation = Invitation.objects.filter(email=email, code=invitation_code)
