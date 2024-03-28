@@ -11,6 +11,9 @@ import assets from './Assets.js';
 // import { generateCollisionMap } from './generateCollisionMap.js';
 
 /** GLOBAL **/
+// Page Elements
+const canvasWrapper = document.getElementById('canvas_wrapper');
+
 // 3D Rendering Pieces
 let screen;
 let scene;
@@ -21,6 +24,30 @@ const canvas = renderer.domElement;
 
 // Current loading status & expected number of objects
 let loadingStatus = 0;
+
+// UI Part
+// HTML with pre-baked CSS, in a wrapper div.
+// UI Parts must have unique names.
+class UI {
+    constructor(name, html) {
+        this.name = name;
+        this.domElement = document.createElement('div');
+        this.domElement.innerHTML = html;
+        this.attach = (parent) => {
+            parent.appendChild(this.domElement);
+        };
+        this.detach = () => {
+            this.domElement.remove();
+        }
+    }
+}
+
+// UI Parts
+const linkToAvatarEditor = new UI(
+    'avatar_editor_link',
+    '<button onclick="console.log(\'avatar edit button was clicked!\');">Edit Avatar</button>',
+);
+const standardUIs = [linkToAvatarEditor];
 
 // Entity Class
 class Entity {
@@ -151,6 +178,7 @@ class Screen {
                 setTimeout(this.run, 100);
             }
         };
+        this.initControls = () => {};
     }
 }
 
@@ -266,13 +294,32 @@ class GameScreen extends Screen {
 class AvatarEditScreen extends Screen {
     constructor() {
         super();
-    }
+
+        // List of Entity objects to load
+        this.sceneContents = [
+            new Entity('Stick Woman', assets.models.StickWoman)
+        ];
+
+        // Lighting
+        this.scene.add(new THREE.AmbientLight(0xfefefe));
+        this.scene.add(new THREE.DirectionalLight(0xffffee, .8));
+    }    
 }
+
 
 // Sets the user up for customizing their hub
 class HubEditScreen extends Screen {
     constructor() {
         super();
+
+        // List of Entity objects to load
+        this.sceneContents = [
+            new FloorEntity('Large Floor', assets.models.LargeFloor)
+        ];
+
+        // Lighting
+        this.scene.add(new THREE.AmbientLight(0xfefefe));
+        this.scene.add(new THREE.DirectionalLight(0xffffee, .8));
     }
 }
 
@@ -300,7 +347,32 @@ const pressedKeys = {};
 /** PAGE INIT **/
 
 // HTML5 Canvas Element
-document.body.appendChild(canvas);
+canvasWrapper.appendChild(canvas);
 
 // Pick screen
 changeScreen(gameScreen);
+
+// Render UI
+const mainScreenButton = document.getElementById('main_screen_button');
+const avatarEditButton = document.getElementById('avatar_edit_button');
+const hubEditButton = document.getElementById('hub_edit_button');
+mainScreenButton.onclick = function () {
+    changeScreen(gameScreen);
+}
+avatarEditButton.onclick = function() {
+    changeScreen(avatarEditScreen);
+}
+hubEditButton.onclick = function() {
+    changeScreen(hubEditScreen);
+}
+
+// const uiFloater = document.createElement('div');
+// uiFloater.style = 'position: fixed;';
+// for (let ui of standardUIs) {
+//     ui.attach(uiFloater);
+// }
+// document.body.appendChild(uiFloater);
+
+// const testButton = document.createElement('button');
+// testButton.style = "font-size: 20px; border-radius: 6px;";
+// floatingUI

@@ -9,6 +9,30 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  #canvas_wrapper {
+    position: fixed;
+    z-index: 100;
+  }
+
+  #ui_wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    display: flex;
+    justify-content: right;
+  }
+  #mode_buttons {
+    margin: 10px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   </style>
@@ -16,9 +40,18 @@
 <body>
 
   <!-- WebGL Render -->
-  <div id="error_message_wrapper"></div>
+  <div id="canvas_wrapper"></div>
 
-  <!-- Test Script -->
+  <!-- Floating UI -->
+  <div id="ui_wrapper">
+    <div id="mode_buttons">
+      <button id="main_screen_button">main screen</button>
+      <button id="avatar_edit_button">edit avatar</button>
+      <button id="hub_edit_button">edit hub</button>
+    </div>
+  </div>
+
+  <!-- Main Script -->
   <script type="module" src="/game/game.js"></script>
 
 </body>
