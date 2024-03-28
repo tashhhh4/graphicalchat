@@ -27,27 +27,28 @@ let loadingStatus = 0;
 
 // UI Part
 // HTML with pre-baked CSS, in a wrapper div.
-// UI Parts must have unique names.
-class UI {
-    constructor(name, html) {
-        this.name = name;
-        this.domElement = document.createElement('div');
-        this.domElement.innerHTML = html;
-        this.attach = (parent) => {
-            parent.appendChild(this.domElement);
-        };
-        this.detach = () => {
-            this.domElement.remove();
-        }
-    }
-}
+// // UI Parts must have unique names.
+// class UI {
+//     constructor(name, html) {
+//         this.name = name;
+//         this.domElement = document.createElement('div');
+//         this.domElement.innerHTML = html;
+//         this.attach = (parent) => {
+//             parent.appendChild(this.domElement);
+//         };
+//         this.detach = () => {
+//             this.domElement.remove();
+//         }
+//     }
+// }
 
-// UI Parts
-const linkToAvatarEditor = new UI(
-    'avatar_editor_link',
-    '<button onclick="console.log(\'avatar edit button was clicked!\');">Edit Avatar</button>',
-);
-const standardUIs = [linkToAvatarEditor];
+// // UI Parts
+// const linkToAvatarEditor = new UI(
+//     'avatar_editor_link',
+//     '<button onclick="console.log(\'avatar edit button was clicked!\');">Edit Avatar</button>',
+// );
+// const standardUIs = [linkToAvatarEditor];
+
 
 // Entity Class
 class Entity {
@@ -95,6 +96,7 @@ class Velocity {
     static LEFT = 270;
     static LEFTUP = 315;
 }
+
 
 /** GAMEPLAY CONSTANTS **/
 const AVATAR_WALK_SPEED = .5;
@@ -160,6 +162,8 @@ class Screen {
             }
         };
         this.updateEntityPositions = () => {};
+
+        this.frameId = null;
         this.run = () => {
             if (loadingStatus === 100) {
                 requestAnimationFrame(this.run);
@@ -178,19 +182,42 @@ class Screen {
                 setTimeout(this.run, 100);
             }
         };
-        this.initControls = () => {};
+        this.stop = () => {
+            cancelAnimationFrame(this.frameId);
+        }
+        this.unloadSceneContents = () => {
+            for (let entity of this.sceneContents) {
+                this.scene.remove(entity.model);
+            }
+        };
     }
 }
 
-function changeScreen(newScreen) {
-    screen = newScreen;
-    camera = newScreen.camera;
-    scene = newScreen.scene;
-    screen.loadSceneContents();
-    screen.initControls();
-    screen.run();
-}
+// Change Screen function
+function changeScreen(type) {
+    if(screen) {
+        screen.stop();
+        screen.unloadSceneContents();
+    }
 
+    switch(type) {
+        case 'GAME':
+            screen = new GameScreen();
+            break;
+        case 'AVATAR':
+            screen = new AvatarEditScreen();
+            break;
+        case 'HUB':
+            screen = new HubEditScreen();
+            break;
+    }
+
+    camera = screen.camera;
+    scene = screen.scene;
+    screen.loadSceneContents();
+    screen.run();
+    resetWindowController();
+}
 
 // Main app mode, Game & Chatroom
 class GameScreen extends Screen {
@@ -221,71 +248,59 @@ class GameScreen extends Screen {
             this.myAvatar.move();
         }
 
-        // Runs when active 'screen' is changed to update window controls
-        this.initControls = () => {
-            const handleKeyDown = (event) => {
-
-                // Pressed Keys
-                pressedKeys[event.keyCode] = true;
-            
-                // Velocity
-                const keys = Object.keys(pressedKeys);
-                if (keys.length === 1) {
-            
-                    const k = keys[0];
-                    if (k == ARROW_UP) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.UP;
-                    } else
-                    if (k == ARROW_RIGHT) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.RIGHT;
-                    } else
-                    if (k == ARROW_DOWN) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.DOWN;
-                    } else
-                    if (k == ARROW_LEFT) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.LEFT;
-                    }
-            
-                } else if (keys.length === 2) {
-                    const k1 = keys[0];
-                    const k2 = keys[1];
-            
-                    // UP-RIGHT
-                    if ((k1 == ARROW_UP && k2 == ARROW_RIGHT) || (k1 == ARROW_RIGHT && k2 == ARROW_UP)) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.UPRIGHT;
-                    }
-                    // RIGHT-DOWN
-                    if ((k1 == ARROW_RIGHT && k2 == ARROW_DOWN) || (k1 == ARROW_DOWN && k2 == ARROW_RIGHT)) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.RIGHTDOWN;
-                    }
-                    // DOWN-LEFT
-                    if ((k1 == ARROW_DOWN && k2 == ARROW_LEFT) || (k1 == ARROW_LEFT && k2 == ARROW_DOWN)) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.DOWNLEFT;
-                    }
-                    // LEFT-UP
-                    if ((k1 == ARROW_LEFT && k2 == ARROW_UP) || (k1 == ARROW_UP && k2 == ARROW_LEFT)) {
-                        this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
-                        this.myAvatar.velocity.angle = Velocity.LEFTUP;
-                    }
+        // Behavior upon catching events
+        this.handleKeyDown = (event) => {
+        
+            const keys = Object.keys(pressedKeys);
+            if (keys.length === 1) {
+        
+                const k = keys[0];
+                if (k == ARROW_UP) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.UP;
+                } else
+                if (k == ARROW_RIGHT) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.RIGHT;
+                } else
+                if (k == ARROW_DOWN) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.DOWN;
+                } else
+                if (k == ARROW_LEFT) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.LEFT;
+                }
+        
+            } else if (keys.length === 2) {
+                const k1 = keys[0];
+                const k2 = keys[1];
+        
+                // UP-RIGHT
+                if ((k1 == ARROW_UP && k2 == ARROW_RIGHT) || (k1 == ARROW_RIGHT && k2 == ARROW_UP)) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.UPRIGHT;
+                }
+                // RIGHT-DOWN
+                if ((k1 == ARROW_RIGHT && k2 == ARROW_DOWN) || (k1 == ARROW_DOWN && k2 == ARROW_RIGHT)) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.RIGHTDOWN;
+                }
+                // DOWN-LEFT
+                if ((k1 == ARROW_DOWN && k2 == ARROW_LEFT) || (k1 == ARROW_LEFT && k2 == ARROW_DOWN)) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.DOWNLEFT;
+                }
+                // LEFT-UP
+                if ((k1 == ARROW_LEFT && k2 == ARROW_UP) || (k1 == ARROW_UP && k2 == ARROW_LEFT)) {
+                    this.myAvatar.velocity.speed = AVATAR_WALK_SPEED;
+                    this.myAvatar.velocity.angle = Velocity.LEFTUP;
                 }
             }
-        
-            const handleKeyUp = (event) => {
-                // Pressed Keys
-                delete pressedKeys[event.keyCode];
-                
-                // Velocity
-                this.myAvatar.velocity.speed = 0;
-            }
-            document.addEventListener('keydown', handleKeyDown);
-            document.addEventListener('keyup', handleKeyUp);
+        };
+
+        this.handleKeyUp = (event) => {    
+            this.myAvatar.velocity.speed = 0;
         };
     }    
 }
@@ -303,6 +318,12 @@ class AvatarEditScreen extends Screen {
         // Lighting
         this.scene.add(new THREE.AmbientLight(0xfefefe));
         this.scene.add(new THREE.DirectionalLight(0xffffee, .8));
+
+        // Camera
+        this.camera.position.z = 16;
+        this.camera.position.y = 6;
+        this.camera.position.x = 0;
+        this.camera.rotateX(-0.5);
     }    
 }
 
@@ -335,35 +356,55 @@ const ARROW_DOWN = 40;
 const ARROW_LEFT = 37;
 const ARROW_RIGHT = 39;
 
+const pressedKeys = {};
+
+function handleKeyDown(event) {
+    pressedKeys[event.keyCode] = true;
+    if (screen && screen.handleKeyDown) {
+        screen.handleKeyDown(event);
+    }
+}
+function handleKeyUp(event) {
+    delete pressedKeys[event.keyCode];
+    if (screen && screen.handleKeyUp) {
+        screen.handleKeyUp(event);
+    }
+}
+
+function resetWindowController() {
+    window.removeEventListener('keydown', handleKeyDown);
+    window.removeEventListener('keyup', handleKeyUp);
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+}
+
 window.addEventListener('resize', function(){
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 });
 
-const pressedKeys = {};
-
 
 /** PAGE INIT **/
-
 // HTML5 Canvas Element
 canvasWrapper.appendChild(canvas);
 
 // Pick screen
-changeScreen(gameScreen);
+changeScreen('GAME');
 
-// Render UI
+// Wire UI
 const mainScreenButton = document.getElementById('main_screen_button');
 const avatarEditButton = document.getElementById('avatar_edit_button');
 const hubEditButton = document.getElementById('hub_edit_button');
 mainScreenButton.onclick = function () {
-    changeScreen(gameScreen);
+    changeScreen('GAME');
 }
 avatarEditButton.onclick = function() {
-    changeScreen(avatarEditScreen);
+    changeScreen('AVATAR');
 }
 hubEditButton.onclick = function() {
-    changeScreen(hubEditScreen);
+    changeScreen('HUB');
 }
 
 // const uiFloater = document.createElement('div');
