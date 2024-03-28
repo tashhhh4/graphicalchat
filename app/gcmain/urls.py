@@ -3,5 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.mainAppView, name='mainAppView'),
-    path('debug/', views.debugPageView, name='debug_page_view')
+
+    # Test pages
+    path('debug/', views.debugPageView, name='debug_page_view'),
+    path('ui-test/', views.uiTestView, name='ui_test_view'),
 ]

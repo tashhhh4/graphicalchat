@@ -3,12 +3,11 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     root: '../',
     build: {
-        outDir: 'gcmain/static/game',
+        outDir: 'gcmain/static/game/main',
         assetsDir: '.',
         rollupOptions: {
             input: {
-                debug: 'material.js',
-                bundle: 'game.js'
+                bundle: '../index.html'
             },
             output: {
                 entryFileNames: '[name].js'

@@ -1,12 +1,8 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <link rel="shortcut icon" href="{% static 'common/favicon.png' %}" type="image/png">
-  <link rel="stylesheet" href="{% static 'common/common.css' %}">
-  <link rel="stylesheet" href="{% static 'gcmain/main.css' %}">
-  <title>Graphical Chat App</title>
+  <title>3D Game Development - Index Page and JS served by "npx vite"</title>
   <style>
 
   * {
@@ -40,34 +36,23 @@
   }
 
   </style>
+  <script type="module" crossorigin src="/bundle.js"></script>
 </head>
 <body>
 
-  <!-- Optional Helpful Information -->
-  {% block debug %}
-  {% endblock %}
-
   <!-- WebGL Render -->
   <div id="canvas_wrapper"></div>
+
   <!-- Floating UI -->
   <div id="ui_wrapper">
     <div id="mode_buttons">
-
-      <!-- Logout Button -->
-      <form class="logout-button" action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Sign Out">
-      </form>
-
-      <!-- Screen Select buttons -->
       <button id="main_screen_button">main screen</button>
       <button id="avatar_edit_button">edit avatar</button>
       <button id="hub_edit_button">edit hub</button>
     </div>
   </div>
-  
-  <!-- 3D Game Main Script -->
-  <script type="module" src="{% static 'game/main/bundle.js' %}"></script>
+
+  <!-- Main Script -->
 
 </body>
 </html>

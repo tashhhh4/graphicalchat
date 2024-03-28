@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Testing HTML & CSS bundling for serving UI</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background-color: rgb(12, 3, 54);
+      color: #fff;
+    }
+    h2 {
+      text-align: center;
+    }
+    #ui_wrapper {
+      width: 400px;
+      height: 250px;
+      margin: auto auto;
+      border: 1px solid #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <script type="module" crossorigin src="/uitest.js"></script>
+  <link rel="stylesheet" crossorigin href="/uitest-kB4PqlKZ.css">
+</head>
+<body>
+
+  <!-- UI Attachment Point -->
+  <h2>UI Attachment Point:</h2>
+  <div id="ui_wrapper"></div>
+
+  <!-- Main Script -->
+
+</body>
+</html>
