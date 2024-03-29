@@ -3,47 +3,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <title>Graphical Chat App</title>
   <link rel="shortcut icon" href="{% static 'common/favicon.png' %}" type="image/png">
   <link rel="stylesheet" href="{% static 'common/common.css' %}">
-  <link rel="stylesheet" href="{% static 'gcmain/main.css' %}">
-  <title>Graphical Chat App</title>
-  <style>
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-
-  #canvas_wrapper {
-    position: fixed;
-    z-index: 100;
-  }
-
-  #ui_wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 200;
-    display: flex;
-    justify-content: right;
-  }
-  #mode_buttons {
-    margin: 10px;
-    padding-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  </style>
+  <link rel="stylesheet" href="{% static 'gcmain/logout.css' %}">
   <script type="module" crossorigin src="{% static 'game/main/bundle.js' %}"></script>
+  <link rel="stylesheet" crossorigin href="{% static 'game/main/bundle-BDHNTYpL.css' %}">
 </head>
 <body>
-  
+
   <!-- Optional Helpful Information -->
   {% block debug %}
   {% endblock %}
@@ -52,21 +20,15 @@
   <div id="canvas_wrapper"></div>
 
   <!-- Floating UI -->
-  <div id="ui_wrapper">
-    <div id="mode_buttons">
-      <button id="main_screen_button">main screen</button>
-      <button id="avatar_edit_button">edit avatar</button>
-      <button id="hub_edit_button">edit hub</button>
-    </div>
-  </div>
+  <div id="ui_mega_wrapper"></div>
 
-   <!-- Logout Button -->
-   <form class="logout-button" action="{% url 'logout' %}" method="post">
+  <!-- Main Script -->
+
+  <!-- Logout Button -->
+  <form class="logout-button" action="{% url 'logout' %}" method="post">
     {% csrf_token %}
     <input type="submit" value="Sign Out">
   </form>
-
-  <!-- Main Script -->
 
 </body>
 </html>

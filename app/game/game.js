@@ -4,7 +4,77 @@
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+// Makes wrapper elements fill page
 import './base.css';
+
+
+/** UI **/
+// Defines style for each UIPart
+import './ui.css';
+
+// Defines appearance of the loading screen
+import './loading.css';
+
+// Load UI Part Templates
+import mainScreenButtonHTML from './templates/main-screen-button.html?raw';
+import avatarEditButtonHTML from './templates/avatar-edit-screen-button.html?raw';
+import hubEditButtonHTML from './templates/hub-edit-screen-button.html?raw';
+
+// Loading Overlay Template
+import loadingScreenHTML from './templates/loading.html?raw';
+
+// Page Hook for UI
+const uiMegaWrapper = document.getElementById('ui_mega_wrapper');
+
+// Definition of UI for a Screen
+// (iterable? List?)
+class UI {
+    constructor() {
+        this._parts = [];
+        this.push = (part) => { this._parts.push(part); };
+    }
+}
+
+// HTML in a wrapper div
+class UIPart {
+    constructor(name, html) {
+        this.name = name;
+        this.domElement = document.createElement('div');
+        this.domElement.classList.add('ui-part-wrapper');
+        this.domElement.innerHTML = html;
+
+        this.attachTo = (parent) => {
+            console.log('Inside attachTo function.');
+            console.log('My name is: ', this.name);
+            parent.appendChild(this.domElement);
+        };
+        this.detach = () => {
+            this.domElement.remove();
+        }
+    }
+}
+
+class FullscreenUIPart extends UIPart {
+    constructor(name, html) {
+        super(name, html);
+        this.domElement.classList.add('fullscreen');
+    }
+}
+
+class ScreenChangeButton extends UIPart {
+    constructor(name, html, screenType) {
+        super(name, html);
+        this.domElement.onclick = function() {changeScreen(screenType)};
+    }
+}
+
+// Define Loading Overlay
+class LoadingOverlay extends FullscreenUIPart {
+    constructor() {
+        super('Loading Overlay', loadingScreenHTML);
+    }
+}
 
 /** Handwritten (later generated) list of all the objects in the game **/
 import assets from './Assets.js';
@@ -96,6 +166,10 @@ class Screen {
         };
         this.loadSceneContents = () => {
 
+            // Create Loading Overlay
+            const loadingOverlay = new LoadingOverlay();
+            loadingOverlay.attachTo(uiMegaWrapper);
+
             // Reset global loading progress
             loadingStatus = 0;
 
@@ -136,6 +210,7 @@ class Screen {
                     undefined
                 );
             }
+            loadingOverlay.detach();
         };
         this.updateEntityPositions = () => {};
 
@@ -362,49 +437,6 @@ window.addEventListener('resize', function(){
 });
 
 
-/** UI **/
-// Load Styles
-import './ui.css';
-import mainScreenButtonHTML from './templates/main-screen-button.html?raw';
-import avatarEditButtonHTML from './templates/avatar-edit-screen-button.html?raw';
-import hubEditButtonHTML from './templates/hub-edit-screen-button.html?raw';
-
-// Page Hook
-const uiMegaWrapper = document.getElementById('ui_mega_wrapper');
-
-// Definition of UI for a Screen
-class UI {
-    constructor() {
-        this._parts = [];
-        this.push = (part) => { this._parts.push(part); };
-    }
-}
-
-// HTML in a wrapper div
-class UIPart {
-    constructor(name, html) {
-        this.name = name;
-        this.domElement = document.createElement('div');
-        this.domElement.classList.add('ui-part-wrapper');
-        this.domElement.innerHTML = html;
-
-        this.attachTo = (parent) => {
-            console.log('Inside attachTo function.');
-            console.log('My name is: ', this.name);
-            parent.appendChild(this.domElement);
-        };
-        this.detach = () => {
-            this.domElement.remove();
-        }
-    }
-}
-
-class ScreenChangeButton extends UIPart {
-    constructor(name, html, screenType) {
-        super(name, html);
-        this.domElement.onclick = function() {changeScreen(screenType)};
-    }
-}
 
 /** PAGE INIT **/
 // HTML5 Canvas Element

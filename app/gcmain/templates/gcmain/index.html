@@ -8,14 +8,14 @@
   <link rel="stylesheet" href="{% static 'common/common.css' %}">
   <link rel="stylesheet" href="{% static 'gcmain/logout.css' %}">
   <script type="module" crossorigin src="{% static 'game/main/bundle.js' %}"></script>
-  <link rel="stylesheet" crossorigin href="{% static 'game/main/bundle-BDHNTYpL.css' %}">
+  <link rel="stylesheet" crossorigin href="{% static 'game/main/bundle-CCpKex3X.css' %}">
 </head>
 <body>
 
   <!-- Optional Helpful Information -->
   {% block debug %}
   {% endblock %}
-
+  
   <!-- WebGL Render -->
   <div id="canvas_wrapper"></div>
 
@@ -23,7 +23,7 @@
   <div id="ui_mega_wrapper"></div>
 
   <!-- Main Script -->
-
+  
   <!-- Logout Button -->
   <form class="logout-button" action="{% url 'logout' %}" method="post">
     {% csrf_token %}
