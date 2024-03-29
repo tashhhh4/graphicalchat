@@ -40,23 +40,35 @@
   }
 
   </style>
-  <script type="module" crossorigin src="/bundle.js"></script>
+  <script type="module" crossorigin src="{% static 'game/bundle.js' %}"></script>
 </head>
 <body>
 
+  <!-- Optional Helpful Information -->
+  {% block debug %}
+  {% endblock %}
+
   <!-- WebGL Render -->
   <div id="canvas_wrapper"></div>
-
   <!-- Floating UI -->
   <div id="ui_wrapper">
     <div id="mode_buttons">
+
+      <!-- Logout Button -->
+      <form class="logout-button" action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Sign Out">
+      </form>
+
+      <!-- Screen Select buttons -->
       <button id="main_screen_button">main screen</button>
       <button id="avatar_edit_button">edit avatar</button>
       <button id="hub_edit_button">edit hub</button>
     </div>
   </div>
-
-  <!-- Main Script -->
+  
+  <!-- 3D Game Main Script -->
+  <script type="module" src="{% static 'game/main/bundle.js' %}"></script>
 
 </body>
 </html>
