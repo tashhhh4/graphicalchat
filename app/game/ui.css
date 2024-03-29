@@ -1,0 +1,19 @@
+/*** UI PART STYLES ***/
+
+.sc-buttons {
+    margin: 10px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* temp screen change buttons */
+.sc-button {
+    background-color: rgb(179, 250, 179);
+    border-radius: 6px;
+    padding: 4px 6px;
+    text-align: center;
+    color: #000;
+    cursor: pointer;
+}

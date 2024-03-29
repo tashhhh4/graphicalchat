@@ -4,6 +4,7 @@
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import './base.css';
 
 /** Handwritten (later generated) list of all the objects in the game **/
 import assets from './Assets.js';
@@ -24,31 +25,6 @@ const canvas = renderer.domElement;
 
 // Current loading status & expected number of objects
 let loadingStatus = 0;
-
-// UI Part
-// HTML with pre-baked CSS, in a wrapper div.
-// // UI Parts must have unique names.
-// class UI {
-//     constructor(name, html) {
-//         this.name = name;
-//         this.domElement = document.createElement('div');
-//         this.domElement.innerHTML = html;
-//         this.attach = (parent) => {
-//             parent.appendChild(this.domElement);
-//         };
-//         this.detach = () => {
-//             this.domElement.remove();
-//         }
-//     }
-// }
-
-// // UI Parts
-// const linkToAvatarEditor = new UI(
-//     'avatar_editor_link',
-//     '<button onclick="console.log(\'avatar edit button was clicked!\');">Edit Avatar</button>',
-// );
-// const standardUIs = [linkToAvatarEditor];
-
 
 // Entity Class
 class Entity {
@@ -386,6 +362,50 @@ window.addEventListener('resize', function(){
 });
 
 
+/** UI **/
+// Load Styles
+import './ui.css';
+import mainScreenButtonHTML from './templates/main-screen-button.html?raw';
+import avatarEditButtonHTML from './templates/avatar-edit-screen-button.html?raw';
+import hubEditButtonHTML from './templates/hub-edit-screen-button.html?raw';
+
+// Page Hook
+const uiMegaWrapper = document.getElementById('ui_mega_wrapper');
+
+// Definition of UI for a Screen
+class UI {
+    constructor() {
+        this._parts = [];
+        this.push = (part) => { this._parts.push(part); };
+    }
+}
+
+// HTML in a wrapper div
+class UIPart {
+    constructor(name, html) {
+        this.name = name;
+        this.domElement = document.createElement('div');
+        this.domElement.classList.add('ui-part-wrapper');
+        this.domElement.innerHTML = html;
+
+        this.attachTo = (parent) => {
+            console.log('Inside attachTo function.');
+            console.log('My name is: ', this.name);
+            parent.appendChild(this.domElement);
+        };
+        this.detach = () => {
+            this.domElement.remove();
+        }
+    }
+}
+
+class ScreenChangeButton extends UIPart {
+    constructor(name, html, screenType) {
+        super(name, html);
+        this.domElement.onclick = function() {changeScreen(screenType)};
+    }
+}
+
 /** PAGE INIT **/
 // HTML5 Canvas Element
 canvasWrapper.appendChild(canvas);
@@ -393,27 +413,18 @@ canvasWrapper.appendChild(canvas);
 // Pick screen
 changeScreen('GAME');
 
-// Wire UI
-const mainScreenButton = document.getElementById('main_screen_button');
-const avatarEditButton = document.getElementById('avatar_edit_button');
-const hubEditButton = document.getElementById('hub_edit_button');
-mainScreenButton.onclick = function () {
-    changeScreen('GAME');
-}
-avatarEditButton.onclick = function() {
-    changeScreen('AVATAR');
-}
-hubEditButton.onclick = function() {
-    changeScreen('HUB');
-}
 
-// const uiFloater = document.createElement('div');
-// uiFloater.style = 'position: fixed;';
-// for (let ui of standardUIs) {
-//     ui.attach(uiFloater);
-// }
-// document.body.appendChild(uiFloater);
+// Define UI
+const screenButtons = new UIPart('Screen Buttons', '');
+    screenButtons.domElement.classList.add('sc-buttons');
+    screenButtons.attachTo(uiMegaWrapper);
 
-// const testButton = document.createElement('button');
-// testButton.style = "font-size: 20px; border-radius: 6px;";
-// floatingUI
+const mainScreenButton = new ScreenChangeButton('Screen Change Button',
+    mainScreenButtonHTML, 'GAME');
+const avatarEditButton = new ScreenChangeButton('Avatar Edit Button',
+    avatarEditButtonHTML, 'AVATAR');
+const hubEditButton = new ScreenChangeButton('Hub Edit Button',
+    hubEditButtonHTML, 'HUB');
+mainScreenButton.attachTo(screenButtons.domElement);
+avatarEditButton.attachTo(screenButtons.domElement);
+hubEditButton.attachTo(screenButtons.domElement);
