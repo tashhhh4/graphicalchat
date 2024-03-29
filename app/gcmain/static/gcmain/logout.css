@@ -1,0 +1,15 @@
+.logout-button {
+    position: absolute;
+    z-index: 300;
+    right: 6px;
+    top: 4px;
+}
+.logout-button input[type="submit"] {
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}

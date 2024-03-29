@@ -6,6 +6,9 @@
     src: url('ARLRDBD.ttf');
 }
 
+body {
+    font-family: "ArialRoundedMT", Verdana, sans-serif;
+}
 
 /*** RESET ***/
 * {

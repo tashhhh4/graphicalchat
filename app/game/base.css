@@ -1,29 +1,19 @@
 /* 3D Game Base CSS */
-/*** FONTS ***/
-@font-face {
-    font-family: ArialRoundedMT;
-    src: url('ARLRDBD.ttf');
-}
-
-body {
-    font-family: "ArialRoundedMT", Verdana, sans-serif;
-}
-
 
 /*** RESET ***/
 div, body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 
 /*** UI SETUP ***/
 #canvas_wrapper {
-    position: fixed;
-    z-index: 100;
-  }
+  position: fixed;
+  z-index: 100;
+}
 
 #ui_mega_wrapper {
   position: fixed;
@@ -34,4 +24,5 @@ div, body {
   z-index: 200;
   display: flex;
   justify-content: right;
+  pointer-events: none;
 }
