@@ -8,7 +8,7 @@ from django.contrib import messages as dj_messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-from database.models import GCUser, Invitation
+from database.models import Profile, Invitation
 
 
 # Generic Password Lock on site
@@ -51,7 +51,7 @@ def createAccount(request):
 
             # Check for duplicate email (migration too hard waaah)
             existing_users_with_email = User.objects.filter(email=email)
-            if len(existing_users_with_email) is not 0:
+            if len(existing_users_with_email) != 0:
                 return redirect('createAccountDuplicateEmailView')
 
             print('Ok, we passed the duplicate email check')
@@ -65,8 +65,8 @@ def createAccount(request):
                 user = User.objects.create_user(username, email, password)
 
                 # Create User Profile
-                gcuser = GCUser(user=user)
-                gcuser.save()
+                profile = Profile(user=user)
+                profile.save()
 
                 # Clean up invitation(s) to the email that was used
                 Invitation.objects.filter(email=email).delete()

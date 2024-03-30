@@ -1,10 +1,13 @@
 from django.db import models
 
 # User
+# auth, login, logout
 from django.contrib.auth.models import User
 
-# GCUser
-class GCUser(models.Model):
+# Profile
+# customization, settings, and chat save data
+# and relationships with other Profiles
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
 # Invitation
