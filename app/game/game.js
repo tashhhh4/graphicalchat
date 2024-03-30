@@ -5,17 +5,20 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+/** Handwritten (later generated) list of all the objects in the game **/
+import assets from './Assets.js';
+
+/** Stylesheets **/
 // Makes wrapper elements fill page
 import './base.css';
 
-
-/** UI **/
 // Defines style for each UIPart
 import './ui.css';
 
 // Defines appearance of the loading screen
 import './loading.css';
 
+/** UI Assets **/
 // Load UI Part Templates
 import mainScreenButtonHTML from './templates/main-screen-button.html?raw';
 import avatarEditButtonHTML from './templates/avatar-edit-screen-button.html?raw';
@@ -45,8 +48,6 @@ class UIPart {
         this.domElement.innerHTML = html;
 
         this.attachTo = (parent) => {
-            console.log('Inside attachTo function.');
-            console.log('My name is: ', this.name);
             parent.appendChild(this.domElement);
         };
         this.detach = () => {
@@ -75,9 +76,6 @@ class LoadingOverlay extends FullscreenUIPart {
         super('Loading Overlay', loadingScreenHTML);
     }
 }
-
-/** Handwritten (later generated) list of all the objects in the game **/
-import assets from './Assets.js';
 
 // import { generateCollisionMap } from './generateCollisionMap.js';
 

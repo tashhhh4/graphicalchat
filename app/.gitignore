@@ -2,7 +2,7 @@ data/*
 staticfiles/*
 assets/*
 gcmain/static/game/assets/*
-.env
+.env*
 .vite/*
 
 game/node_modules/*
