@@ -6,9 +6,10 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from gclogin.invitations import generate_code
-from database.models import Invitation
 from django.db import IntegrityError
 from config.utils import get_absolute_base_url
+
+from database.models import Invitation, HubBase
 
 @permission_required(perm='is_superuser', login_url='/admin/login')
 def adminMenuView(request):
@@ -80,3 +81,28 @@ def sendInvitation(request):
 @permission_required(perm='is_superuser', login_url='/admin/login')
 def invitationSentView(request):
     return render(request, 'management/invitation_done.html')
+
+
+# Management of Game Item Defenitions & Assets
+def gameObjectsMenuView(request):
+    return render(request, 'management/game_objects.html')
+
+def hubBaseFormView(request):
+    context = {
+        'hub_bases': HubBase.objects.all()
+    }
+    return render(request, 'management/hub_base.html', context)
+
+def addHubBase(request):
+    name = request.POST.get('name')
+    path = request.POST.get('path')
+    order = 1;
+    newObj = HubBase(name=name, model=path, order=order)
+    newObj.save()
+    return redirect('hubBaseFormView')
+
+def deleteHubBase(request):
+    pk = request.POST.get('id')
+    targetObj = HubBase.objects.get(id=pk)
+    targetObj.delete()
+    return redirect('hubBaseFormView')

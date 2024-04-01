@@ -8,6 +8,7 @@ class GameObject(models.Model):
     class Meta:
         abstract = True
 
+
 class HubBase(GameObject):
     name = models.CharField(max_length=127, unique=True)
     model = models.CharField(max_length=255) # url

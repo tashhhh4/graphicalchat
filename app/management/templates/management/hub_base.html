@@ -1,0 +1,40 @@
+{% extends 'management/base.html' %}
+
+{% block main %}
+
+<h3>Existing Items (View & Edit)</h3>
+{% if hub_bases %}
+  <table>
+    <th></th>
+    <th></th>
+  {% for item in hub_bases %}
+    <tr>
+      <form style="display:inline;" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{item.id}}" name="id">
+        <input type="text" value="{{item.name}}" name="name">
+        <input type="text" value="{{item.model}}" name="path">
+      </form>
+      <form style="display:inline;" action="{% url 'deleteHubBase' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{item.id}}" name="id">
+        <input type="submit" value="Delete">
+      </form>
+    </tr>
+  {% endfor %}
+  </table>
+{% else %}
+  <p>Nothing here.</p>
+{% endif %}
+
+<form action="{% url 'addHubBase' %}" method="post">
+  <h3>Add New</h3>
+  {% csrf_token %}
+  <label>Name:</label>
+  <input type="text" name="name"><br>
+  <label>Filename:</label>
+  <input type="text" name="path"><br>
+  <input type="submit" value="Create">
+</form>
+
+{% endblock %}
