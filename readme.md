@@ -1,7 +1,13 @@
 Graphical Chat App
+------------------
 By Natasha Libera
 
 official website: graphicalchat.app
+
+
+Ok so, I'm thinking of changing the backend for this project. But for now, the following
+description is how you build the 3D Graphics Engine after making changes to "game.js",
+and then run the full project with the Django framework that adds login functionality.
 
 
 The Workflow for developing the 3D App
