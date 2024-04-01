@@ -1,4 +1,16 @@
 from django.db import models
+from django.core.validators import MinValueValidator
+
+# Game Object Types
+class GameObject(models.Model):
+    order = models.IntegerField(validators=[MinValueValidator(0)])
+
+    class Meta:
+        abstract = True
+
+class HubBase(GameObject):
+    name = models.CharField(max_length=127, unique=True)
+    model = models.CharField(max_length=255) # url
 
 # User
 # auth, login, logout
