@@ -23,4 +23,6 @@ div, body {
   height: 100%;
   z-index: 200;
   pointer-events: none;
+  display: flex;
+  justify-content: right;
 }
