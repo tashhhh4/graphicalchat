@@ -5,8 +5,11 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-/** Handwritten (later generated) list of all the objects in the game **/
+/** List of all the objects in the game **/
 import assets from './Assets.js';
+
+/** Logged-in User **/
+import getUserData from './UserFixture.js';
 
 /** Stylesheets **/
 // Makes wrapper elements fill page
@@ -94,11 +97,30 @@ const canvas = renderer.domElement;
 // Current loading status & expected number of objects
 let loadingStatus = 0;
 
+
+// User Data classes
+// class Hub {
+//     constructor(userID) {
+//         this.userID = userID;
+//     }
+// }
+
+// class User {
+//     constructor(id, location) {
+//         this.id = id;
+//         this.username = username;
+//         this.location = location;
+//     }
+// }
+
+
 // Entity Class
+// Make a new subclass for every thing
+// that has a different behavior
 class Entity {
-    constructor(name, file) {
+    constructor(name) {
         this.name = name;
-        this.file = file;
+        this.file = assets.get(name);
         this.model = null;
         // this.collisionMap = null;
         this.velocity = new Velocity(0, 0);
@@ -116,9 +138,15 @@ class Entity {
 }
 
 class FloorEntity extends Entity {
-    constructor(name, file) {
-        super(name, file);
+    constructor(name) {
+        super(name);
         // this.collisionMap = null;
+    }
+}
+
+class CharacterEntity extends Entity {
+    constructor(name) {
+        super(name);
     }
 }
 
@@ -239,6 +267,7 @@ class Screen {
                 this.scene.remove(entity.model);
             }
         };
+        this.ui = null;
     }
 }
 
@@ -273,14 +302,19 @@ class GameScreen extends Screen {
     constructor() {
         super();
 
+        // Represent the user from whose
+        // account environment settings are loaded
+        // this.hub_owner = new User(1);
+
         // List of Entity objects to load
         this.sceneContents = [
-            new FloorEntity('Hub Floor', assets.models.IrregularFloor),
-            new Entity('Stick Woman', assets.models.StickWoman),
+            new FloorEntity('Large_Floor'),
+            new CharacterEntity('Stick_Woman'),
         ];
 
+
         // Player character
-        this.myAvatar = this.findSceneContentsByName('Stick Woman');
+        this.myAvatar = this.findSceneContentsByName('Stick_Woman');
 
         // Lighting
         this.scene.add(new THREE.AmbientLight(0xfefefe));
@@ -351,6 +385,7 @@ class GameScreen extends Screen {
         this.handleKeyUp = (event) => {    
             this.myAvatar.velocity.speed = 0;
         };
+
     }    
 }
 
@@ -361,7 +396,7 @@ class AvatarEditScreen extends Screen {
 
         // List of Entity objects to load
         this.sceneContents = [
-            new Entity('Stick Woman', assets.models.StickWoman)
+            new Entity('Stick_Woman')
         ];
 
         // Lighting
@@ -382,9 +417,12 @@ class HubEditScreen extends Screen {
     constructor() {
         super();
 
+        // User
+        this.user = getUserData();
+
         // List of Entity objects to load
         this.sceneContents = [
-            new FloorEntity('Large Floor', assets.models.LargeFloor)
+            new FloorEntity(this.user.hub_base)
         ];
 
         // Lighting
@@ -392,10 +430,6 @@ class HubEditScreen extends Screen {
         this.scene.add(new THREE.DirectionalLight(0xffffee, .8));
     }
 }
-
-const gameScreen = new GameScreen();
-const avatarEditScreen = new AvatarEditScreen();
-const hubEditScreen = new HubEditScreen();
 
 
 /** UNIVERSAL WINDOW & KEYBOARD SETTINGS **/
