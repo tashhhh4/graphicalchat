@@ -37,9 +37,6 @@ const canvas = renderer.domElement;
 // Functions
 function changeScreen(type) {
     if(screen) {
-        console.log('screen object exists.');
-        console.log('screen is:');
-        console.log(screen);
         screen.stop();
         screen.unloadSceneContents();
         if(screen.uis) {
@@ -263,6 +260,17 @@ class HubEditScreen extends Screen {
         const hubBottomHTML = f_hubBottomHTML({'HUB_BASES': HUB_BASES});
         const hubEditDoneButtonHTML = f_hubEditDoneButtonHTML();
         
+        const hubBottomActions = [
+            {
+                id: 'hub_base_opt_Green_Floor',
+                action: () => {console.log('You clicked on a the Green Floor.');}
+            },
+            {
+                id: 'hub_base_opt_Irregular_Floor',
+                action: () => {console.log('You clicked on the Irregular Floor.');}
+            }
+        ];
+
         const doneButtonActions = [
             {
                 id: 'done_button',
@@ -271,7 +279,7 @@ class HubEditScreen extends Screen {
         ];
 
         this.uis = [
-            new UI('hub_bottom_bar', hubBottomHTML, []),
+            new UI('hub_bottom_bar', hubBottomHTML, hubBottomActions),
             new UI('hub_edit_done_button', hubEditDoneButtonHTML, doneButtonActions),
         ];
     }
@@ -321,5 +329,4 @@ window.addEventListener('resize', function(){
 canvasWrapper.appendChild(canvas);
 
 // Pick screen
-console.log('Right before calling changeScreen function');
 changeScreen('GAME');

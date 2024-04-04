@@ -23,7 +23,6 @@ class LoadingOverlay extends FullscreenUI {
  */
 class Screen {
     constructor(uiWrapper, renderer) {
-        console.log('Inside the constructor for a screen object.');
         this.uiWrapper = uiWrapper;
         this.renderer = renderer;
         this.scene = new THREE.Scene();
