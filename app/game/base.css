@@ -15,7 +15,7 @@ div, body {
   z-index: 100;
 }
 
-#ui_mega_wrapper {
+.ui-wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,6 +23,19 @@ div, body {
   height: 100%;
   z-index: 200;
   pointer-events: none;
-  display: flex;
-  justify-content: right;
+}
+
+.ui-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.ui-layer > div {
+  position: absolute;
+}
+
+.clickable {
+  pointer-events: auto;
+  cursor: pointer;
 }

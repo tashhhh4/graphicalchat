@@ -8,6 +8,9 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 /** List of all the objects in the game **/
 import assets from './Assets.js';
 
+/** Hub Bases **/
+import HUB_BASES from './hub_base_list.js';
+
 /** Logged-in User **/
 import getUserData from './UserFixture.js';
 
@@ -15,7 +18,7 @@ import getUserData from './UserFixture.js';
 // Makes wrapper elements fill page
 import './base.css';
 
-// Defines style for each UIPart
+// Defines style for each UI
 import './ui.css';
 
 // Defines appearance of the loading screen
@@ -23,60 +26,59 @@ import './loading.css';
 
 /** UI Assets **/
 // Load UI Part Templates
-import mainScreenButtonHTML from './templates/main-screen-button.html?raw';
-import avatarEditButtonHTML from './templates/avatar-edit-screen-button.html?raw';
-import hubEditButtonHTML from './templates/hub-edit-screen-button.html?raw';
+// import f_mainScreenButtonHTML from './templates/main-screen-button.js';
+// const mainScreenButtonHTML = f_mainScreenButtonHTML();
+// import f_avatarEditButtonHTML from './templates/avatar-edit-screen-button.js';
+// const avatarEditButtonHTML = f_avatarEditButtonHTML();
+
+import f_hubEditButtonHTML from './templates/hub-edit-screen-button.js';
+import f_hubEditDoneButtonHTML from './templates/hub-edit-done-button.js';
+
+import f_hubBottomHTML from './templates/hub-bottom.js';
 
 // Loading Overlay Template
 import loadingScreenHTML from './templates/loading.html?raw';
 
 // Page Hook for UI
-const uiMegaWrapper = document.getElementById('ui_mega_wrapper');
-
-// Definition of UI for a Screen
-// (iterable? List?)
-class UI {
-    constructor() {
-        this._parts = [];
-        this.push = (part) => { this._parts.push(part); };
-    }
-}
+const uiWrapper = document.getElementById('ui_wrapper');
 
 // HTML in a wrapper div
-class UIPart {
-    constructor(name, html) {
-        this.name = name;
-        this.domElement = document.createElement('div');
-        this.domElement.classList.add('ui-part-wrapper');
-        this.domElement.innerHTML = html;
+class UI {
+    constructor(id, innerHTML, actions) {
+        this.rootElement = document.createElement('div');
+        this.rootElement.classList.add('ui-layer');
+        this.rootElement.id = id;
+        this.rootElement.innerHTML = innerHTML;
+
+        this.actions = actions;
 
         this.attachTo = (parent) => {
-            parent.appendChild(this.domElement);
+            parent.appendChild(this.rootElement);
+
+            // Wire button actions
+            this.actions.forEach(({id, action}) => {
+                const elem = document.getElementById(id);
+                elem.onclick = action;
+            });
         };
         this.detach = () => {
-            this.domElement.remove();
+            this.rootElement.remove();
         }
     }
 }
 
-class FullscreenUIPart extends UIPart {
-    constructor(name, html) {
-        super(name, html);
-        this.domElement.classList.add('fullscreen');
+class FullscreenUI extends UI {
+    constructor(name, html, actions) {
+        super(name, html, actions);
+        this.rootElement.classList.add('fullscreen');
     }
 }
 
-class ScreenChangeButton extends UIPart {
-    constructor(name, html, screenType) {
-        super(name, html);
-        this.domElement.onclick = function() {changeScreen(screenType)};
-    }
-}
 
 // Define Loading Overlay
-class LoadingOverlay extends FullscreenUIPart {
+class LoadingOverlay extends FullscreenUI {
     constructor() {
-        super('Loading Overlay', loadingScreenHTML);
+        super('Loading Overlay', loadingScreenHTML, []);
     }
 }
 
@@ -194,7 +196,7 @@ class Screen {
 
             // Create Loading Overlay
             const loadingOverlay = new LoadingOverlay();
-            loadingOverlay.attachTo(uiMegaWrapper);
+            loadingOverlay.attachTo(uiWrapper);
 
             // Reset global loading progress
             loadingStatus = 0;
@@ -276,6 +278,11 @@ function changeScreen(type) {
     if(screen) {
         screen.stop();
         screen.unloadSceneContents();
+        if(screen.uis) {
+            for(let ui of screen.uis) {
+                ui.detach();
+            }
+        }
     }
 
     switch(type) {
@@ -294,6 +301,11 @@ function changeScreen(type) {
     scene = screen.scene;
     screen.loadSceneContents();
     screen.run();
+    if(screen.uis) {
+        for (let ui of screen.uis) {
+            ui.attachTo(uiWrapper);
+        }
+    }
     resetWindowController();
 }
 
@@ -386,6 +398,19 @@ class GameScreen extends Screen {
             this.myAvatar.velocity.speed = 0;
         };
 
+        const hubEditButtonHTML = f_hubEditButtonHTML();
+
+        const editHubActions = [
+            {
+                id: 'edit_hub_button',
+                action: () => changeScreen('HUB')
+            }
+        ];
+
+        this.uis = [
+            new UI('main_edit_hub_button', hubEditButtonHTML, editHubActions)
+        ];
+
     }    
 }
 
@@ -428,6 +453,25 @@ class HubEditScreen extends Screen {
         // Lighting
         this.scene.add(new THREE.AmbientLight(0xfefefe));
         this.scene.add(new THREE.DirectionalLight(0xffffee, .8));
+
+        this.data = {
+            hub_bases: HUB_BASES
+        };
+
+        const hubBottomHTML = f_hubBottomHTML({'HUB_BASES': HUB_BASES});
+        const hubEditDoneButtonHTML = f_hubEditDoneButtonHTML();
+        
+        const doneButtonActions = [
+            {
+                id: 'done_button',
+                action: () => changeScreen('GAME')
+            }
+        ];
+
+        this.uis = [
+            new UI('hub_bottom_bar', hubBottomHTML, []),
+            new UI('hub_edit_done_button', hubEditDoneButtonHTML, doneButtonActions),
+        ];
     }
 }
 
@@ -475,20 +519,4 @@ window.addEventListener('resize', function(){
 canvasWrapper.appendChild(canvas);
 
 // Pick screen
-changeScreen('GAME');
-
-
-// Define UI
-const screenButtons = new UIPart('Screen Buttons', '');
-    screenButtons.domElement.classList.add('sc-buttons');
-    screenButtons.attachTo(uiMegaWrapper);
-
-const mainScreenButton = new ScreenChangeButton('Screen Change Button',
-    mainScreenButtonHTML, 'GAME');
-const avatarEditButton = new ScreenChangeButton('Avatar Edit Button',
-    avatarEditButtonHTML, 'AVATAR');
-const hubEditButton = new ScreenChangeButton('Hub Edit Button',
-    hubEditButtonHTML, 'HUB');
-mainScreenButton.attachTo(screenButtons.domElement);
-avatarEditButton.attachTo(screenButtons.domElement);
-hubEditButton.attachTo(screenButtons.domElement);
+changeScreen('HUB');

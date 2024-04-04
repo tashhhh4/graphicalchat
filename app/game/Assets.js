@@ -1,6 +1,5 @@
 const ASSETS_BASE_URL = import.meta.env.VITE_ASSETS_BASE_URL;
 const ASSETS_URL = ASSETS_BASE_URL + 'assets/';
-console.log('ASSETS_URL=' + ASSETS_URL);
 
 class Assets {
     constructor() {
