@@ -5,8 +5,10 @@ class Template {
         this.templateFile = templateFile;
         this.render = () => {
 
+            let output = this.templateFile;
 
-            const output = this.html;
+            // Maybe I just want to use a template rendering engine.
+
             return output;
         };
     }
