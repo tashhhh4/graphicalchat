@@ -1,3 +1,5 @@
+export { UI, FullscreenUI };
+
 // HTML in a wrapper div
 class UI {
     constructor(id, innerHTML, actions) {
@@ -20,6 +22,13 @@ class UI {
         this.detach = () => {
             this.rootElement.remove();
         }
+    }
+}
+
+class FullscreenUI extends UI {
+    constructor(name, html, actions) {
+        super(name, html, actions);
+        this.rootElement.classList.add('fullscreen');
     }
 }
 

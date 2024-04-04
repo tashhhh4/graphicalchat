@@ -2,57 +2,23 @@
  * for the Graphical Chat App
  */
 
+/** Game Engine**/
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-/** Game Engine**/
-import UI from './UI.js';
+import { UI, FullscreenUI } from './UI.js';
+import { Entity } from './Entity.js';
+import { Velocity } from './Velocity.js';
 
-/** List of all the objects in the game **/
-import assets from './Assets.js';
-
-/** Hub Bases **/
-import HUB_BASES from './hub_base_list.js';
-
-/** Logged-in User **/
-import getUserData from './UserFixture.js';
-
-/** Stylesheets **/
+// Base Stylesheets
 // Makes wrapper elements fill page
 import './base.css';
-
-// Defines style for each UI
-import './ui.css';
 
 // Defines appearance of the loading screen
 import './loading.css';
 
-/** UI Assets **/
-// Load UI Part Templates
-// import f_mainScreenButtonHTML from './templates/main-screen-button.js';
-// const mainScreenButtonHTML = f_mainScreenButtonHTML();
-// import f_avatarEditButtonHTML from './templates/avatar-edit-screen-button.js';
-// const avatarEditButtonHTML = f_avatarEditButtonHTML();
-
-import f_hubEditButtonHTML from './templates/hub-edit-screen-button.js';
-import f_hubEditDoneButtonHTML from './templates/hub-edit-done-button.js';
-
-import f_hubBottomHTML from './templates/hub-bottom.js';
-
 // Loading Overlay Template
 import loadingScreenHTML from './templates/loading.html?raw';
-
-// Page Hook for UI
-const uiWrapper = document.getElementById('ui_wrapper');
-
-
-class FullscreenUI extends UI {
-    constructor(name, html, actions) {
-        super(name, html, actions);
-        this.rootElement.classList.add('fullscreen');
-    }
-}
-
 
 // Define Loading Overlay
 class LoadingOverlay extends FullscreenUI {
@@ -64,7 +30,10 @@ class LoadingOverlay extends FullscreenUI {
 // import { generateCollisionMap } from './generateCollisionMap.js';
 
 /** GLOBAL **/
-// Page Elements
+// Page Hook for UI
+const uiWrapper = document.getElementById('ui_wrapper');
+
+// Wrapper for Canvas
 const canvasWrapper = document.getElementById('canvas_wrapper');
 
 // 3D Rendering Pieces
@@ -95,59 +64,17 @@ let loadingStatus = 0;
 // }
 
 
-// Entity Class
-// Make a new subclass for every thing
-// that has a different behavior
-class Entity {
-    constructor(name) {
-        this.name = name;
-        this.file = assets.get(name);
-        this.model = null;
-        // this.collisionMap = null;
-        this.velocity = new Velocity(0, 0);
-        this.move = function() {            
-            const radians = this.velocity.angle * (Math.PI / 180);
-            const speed = this.velocity.speed;
-
-            const deltaX = Math.sin(radians) * speed;
-            const deltaZ = Math.cos(radians) * speed * -1;
-
-            this.model.position.x += deltaX;
-            this.model.position.z += deltaZ;
-        }
-    }
-}
-
 class FloorEntity extends Entity {
-    constructor(name) {
-        super(name);
+    constructor(name, asset) {
+        super(name, asset);
         // this.collisionMap = null;
     }
 }
 
 class CharacterEntity extends Entity {
-    constructor(name) {
-        super(name);
+    constructor(name, asset) {
+        super(name, asset);
     }
-}
-
-// Velocity Vector
-/* Angle Unit: degrees
- * decreasing z when angle = 0
- */
-class Velocity {
-    constructor(speed, angle) {
-        this.speed = speed;
-        this.angle = angle;
-    }
-    static UP = 0;
-    static UPRIGHT = 45;
-    static RIGHT = 90;
-    static RIGHTDOWN = 135;
-    static DOWN = 180;
-    static DOWNLEFT = 225;
-    static LEFT = 270;
-    static LEFTUP = 315;
 }
 
 
@@ -289,6 +216,24 @@ function changeScreen(type) {
 }
 
 /** Game Definition **/
+// List of all the objects in the game
+import assets from './Assets.js';
+
+// Hub Base models
+import HUB_BASES from './hub_base_list.js';
+
+// Logged-in User
+import getUserData from './UserFixture.js';
+
+// Defines style for each UI piece
+import './ui.css';
+
+// HTML Templates
+import f_hubEditButtonHTML from './templates/hub-edit-screen-button.js';
+import f_hubEditDoneButtonHTML from './templates/hub-edit-done-button.js';
+
+import f_hubBottomHTML from './templates/hub-bottom.js';
+
 
 // Main app mode, Game & Chatroom
 class GameScreen extends Screen {
@@ -301,8 +246,8 @@ class GameScreen extends Screen {
 
         // List of Entity objects to load
         this.sceneContents = [
-            new FloorEntity('Large_Floor'),
-            new CharacterEntity('Stick_Woman'),
+            new FloorEntity('Large_Floor', assets.get('Large_Floor')),
+            new CharacterEntity('Stick_Woman', assets.get('Stick_Woman')),
         ];
 
 
@@ -402,7 +347,7 @@ class AvatarEditScreen extends Screen {
 
         // List of Entity objects to load
         this.sceneContents = [
-            new Entity('Stick_Woman')
+            new Entity('Stick_Woman', assets.get('Stick_Woman'))
         ];
 
         // Lighting
@@ -428,7 +373,7 @@ class HubEditScreen extends Screen {
 
         // List of Entity objects to load
         this.sceneContents = [
-            new FloorEntity(this.user.hub_base)
+            new FloorEntity('Large_Floor', assets.get('Large_Floor'))
         ];
 
         // Lighting
