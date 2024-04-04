@@ -1,4 +1,4 @@
-export { Entity };
+export { Entity, FloorEntity, CharacterEntity };
 
 import { Velocity } from './Velocity.js';
 
@@ -22,5 +22,18 @@ class Entity {
             this.model.position.x += deltaX;
             this.model.position.z += deltaZ;
         }
+    }
+}
+
+class FloorEntity extends Entity {
+    constructor(name, asset) {
+        super(name, asset);
+        // this.collisionMap = null;
+    }
+}
+
+class CharacterEntity extends Entity {
+    constructor(name, asset) {
+        super(name, asset);
     }
 }

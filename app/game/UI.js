@@ -31,5 +31,3 @@ class FullscreenUI extends UI {
         this.rootElement.classList.add('fullscreen');
     }
 }
-
-export default UI;

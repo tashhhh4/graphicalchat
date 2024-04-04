@@ -7,7 +7,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { UI, FullscreenUI } from './UI.js';
-import { Entity } from './Entity.js';
+import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
 import { Velocity } from './Velocity.js';
 
 // Base Stylesheets
@@ -62,20 +62,6 @@ let loadingStatus = 0;
 //         this.location = location;
 //     }
 // }
-
-
-class FloorEntity extends Entity {
-    constructor(name, asset) {
-        super(name, asset);
-        // this.collisionMap = null;
-    }
-}
-
-class CharacterEntity extends Entity {
-    constructor(name, asset) {
-        super(name, asset);
-    }
-}
 
 
 /** GAMEPLAY CONSTANTS **/
