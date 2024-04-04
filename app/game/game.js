@@ -73,8 +73,6 @@ class Screen {
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 
-        this.sceneIsSet = false;
-
         // sceneContents is a list of Entity objects.
         this.sceneContents = [];
         this.findSceneContentsByName = (name) => {
@@ -138,12 +136,6 @@ class Screen {
         this.run = () => {
             if (loadingStatus === 100) {
                 requestAnimationFrame(this.run);
-        
-                // Manual adjustment of object position after loading
-                // unnecessary - use data to update entity pos when loading
-                if (this.sceneIsSet == false) {
-                    this.sceneIsSet = true;
-                }
         
                 // Update entity positions
                 this.updateEntityPositions();
