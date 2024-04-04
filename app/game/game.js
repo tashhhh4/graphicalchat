@@ -9,6 +9,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { UI, FullscreenUI } from './UI.js';
 import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
 import { Velocity } from './Velocity.js';
+import { Screen } from './Screen.js';
 
 // Base Stylesheets
 // Makes wrapper elements fill page
@@ -38,14 +39,10 @@ const canvasWrapper = document.getElementById('canvas_wrapper');
 
 // 3D Rendering Pieces
 let screen;
-let scene;
 let camera;
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 const canvas = renderer.domElement;
-
-// Current loading status & expected number of objects
-let loadingStatus = 0;
 
 
 // User Data classes
@@ -67,96 +64,6 @@ let loadingStatus = 0;
 /** GAMEPLAY CONSTANTS **/
 const AVATAR_WALK_SPEED = .5;
 
-// Screen
-class Screen {
-    constructor() {
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-
-        // sceneContents is a list of Entity objects.
-        this.sceneContents = [];
-        this.findSceneContentsByName = (name) => {
-            for (const entity of this.sceneContents) {
-                if (entity.name === name) {
-                    return entity;
-                }
-            }
-        };
-        this.loadSceneContents = () => {
-
-            // Create Loading Overlay
-            const loadingOverlay = new LoadingOverlay();
-            loadingOverlay.attachTo(uiWrapper);
-
-            // Reset global loading progress
-            loadingStatus = 0;
-
-            let countFiles = 0;
-            const totalFiles = this.sceneContents.length;
-
-            const scene = this.scene;
-
-            for (const entity of this.sceneContents) {
-                const loader = new GLTFLoader();
-                loader.load(
-
-                    // Resource URL
-                    entity.file,
-
-                    // onLoad : Function
-                    function(gltf) {
-
-                        // Define Entity Object
-                        const model = gltf.scene.children[0];
-                        model.name = entity.name;
-                        entity.model = model;
-                        // const map = generateCollisionMap(model);
-                        // entity.collisionMap = map; 
-
-                        // Add to scene
-                        scene.add(model);
-                        countFiles += 1;
-                        loadingStatus = countFiles / totalFiles * 100;
-                        //this.objectsLoaded = countFiles / this.totalFiles * 100;
-                        console.log('Object Loading Progress: ' + loadingStatus + '%');
-                    },
-                
-                    // onProgress : Function
-                    undefined,
-
-                    // onError : Function
-                    undefined
-                );
-            }
-            loadingOverlay.detach();
-        };
-        this.updateEntityPositions = () => {};
-
-        this.frameId = null;
-        this.run = () => {
-            if (loadingStatus === 100) {
-                requestAnimationFrame(this.run);
-        
-                // Update entity positions
-                this.updateEntityPositions();
-        
-                renderer.render(scene, camera);
-            } else {
-                setTimeout(this.run, 100);
-            }
-        };
-        this.stop = () => {
-            cancelAnimationFrame(this.frameId);
-        }
-        this.unloadSceneContents = () => {
-            for (let entity of this.sceneContents) {
-                this.scene.remove(entity.model);
-            }
-        };
-        this.ui = null;
-    }
-}
-
 // Change Screen function
 function changeScreen(type) {
     if(screen) {
@@ -171,18 +78,17 @@ function changeScreen(type) {
 
     switch(type) {
         case 'GAME':
-            screen = new GameScreen();
+            screen = new GameScreen(uiWrapper, renderer);
             break;
         case 'AVATAR':
-            screen = new AvatarEditScreen();
+            screen = new AvatarEditScreen(uiWrapper, renderer);
             break;
         case 'HUB':
-            screen = new HubEditScreen();
+            screen = new HubEditScreen(uiWrapper, renderer);
             break;
     }
 
     camera = screen.camera;
-    scene = screen.scene;
     screen.loadSceneContents();
     screen.run();
     if(screen.uis) {
@@ -215,8 +121,8 @@ import f_hubBottomHTML from './templates/hub-bottom.js';
 
 // Main app mode, Game & Chatroom
 class GameScreen extends Screen {
-    constructor() {
-        super();
+    constructor(uiWrapper, renderer) {
+        super(uiWrapper, renderer);
 
         // Represent the user from whose
         // account environment settings are loaded
@@ -320,8 +226,8 @@ class GameScreen extends Screen {
 
 // Sets the user up for customizing their avatar
 class AvatarEditScreen extends Screen {
-    constructor() {
-        super();
+    constructor(uiWrapper, renderer) {
+        super(uiWrapper, renderer);
 
         // List of Entity objects to load
         this.sceneContents = [
@@ -343,8 +249,8 @@ class AvatarEditScreen extends Screen {
 
 // Sets the user up for customizing their hub
 class HubEditScreen extends Screen {
-    constructor() {
-        super();
+    constructor(uiWrapper, renderer) {
+        super(uiWrapper, renderer);
 
         // User
         this.user = getUserData();
