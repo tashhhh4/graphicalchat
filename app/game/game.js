@@ -5,7 +5,7 @@
 /** Game Engine**/
 import * as THREE from 'three';
 
-import { UI, FullscreenUI } from './UI.js';
+import { UI } from './UI.js';
 import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
 import { Velocity } from './Velocity.js';
 import { Screen } from './Screen.js';
@@ -90,6 +90,13 @@ const AVATAR_WALK_SPEED = .5;
 
 
 /** Game Definition **/
+// Globally available data
+
+// HTML Templates
+import hubEditButtonTemplate from './templates/hub-edit-button.html?raw';
+import hubEditDoneButtonTemplate from './templates/hub-edit-done-button.html?raw';
+import hubBottomTemplate from './templates/hub-bottom.html?raw';
+
 // List of all the objects in the game
 import assets from './Assets.js';
 
@@ -101,12 +108,6 @@ import getUserData from './UserFixture.js';
 
 // Defines style for each UI piece
 import './ui.css';
-
-// HTML Templates
-import f_hubEditButtonHTML from './templates/hub-edit-screen-button.js';
-import f_hubEditDoneButtonHTML from './templates/hub-edit-done-button.js';
-
-import f_hubBottomHTML from './templates/hub-bottom.js';
 
 // Main app mode, Game & Chatroom
 class GameScreen extends Screen {
@@ -122,7 +123,6 @@ class GameScreen extends Screen {
             new FloorEntity('Large_Floor', assets.get('Large_Floor')),
             new CharacterEntity('Stick_Woman', assets.get('Stick_Woman')),
         ];
-
 
         // Player character
         this.myAvatar = this.findSceneContentsByName('Stick_Woman');
@@ -197,8 +197,6 @@ class GameScreen extends Screen {
             this.myAvatar.velocity.speed = 0;
         };
 
-        const hubEditButtonHTML = f_hubEditButtonHTML();
-
         const editHubActions = [
             {
                 id: 'edit_hub_button',
@@ -207,7 +205,7 @@ class GameScreen extends Screen {
         ];
 
         this.uis = [
-            new UI('main_edit_hub_button', hubEditButtonHTML, editHubActions)
+            new UI('main_edit_hub_button', hubEditButtonTemplate, editHubActions)
         ];
 
     }    
@@ -256,18 +254,15 @@ class HubEditScreen extends Screen {
         this.data = {
             hub_bases: HUB_BASES
         };
-
-        const hubBottomHTML = f_hubBottomHTML({'HUB_BASES': HUB_BASES});
-        const hubEditDoneButtonHTML = f_hubEditDoneButtonHTML();
         
         const hubBottomActions = [
             {
-                id: 'hub_base_opt_Green_Floor',
-                action: () => {console.log('You clicked on a the Green Floor.');}
+                id: 'hub_base_opts_Green_Floor',
+                action: () => {console.log('You clicked on the Green Floor label.');}
             },
             {
-                id: 'hub_base_opt_Irregular_Floor',
-                action: () => {console.log('You clicked on the Irregular Floor.');}
+                id: 'hub_base_opts_Irregular_Floor',
+                action: () => {console.log('You clicked on the Irregular Floor label.');}
             }
         ];
 
@@ -279,8 +274,8 @@ class HubEditScreen extends Screen {
         ];
 
         this.uis = [
-            new UI('hub_bottom_bar', hubBottomHTML, hubBottomActions),
-            new UI('hub_edit_done_button', hubEditDoneButtonHTML, doneButtonActions),
+            new UI('hub_bottom_bar', hubBottomTemplate, hubBottomActions),
+            new UI('hub_edit_done_button', hubEditDoneButtonTemplate, doneButtonActions),
         ];
     }
 }

@@ -1,12 +1,17 @@
 export { UI, FullscreenUI };
 
-// HTML in a wrapper div
+import { Template } from './Template.js';
+
+// Rendered HTML in a wrapper div
 class UI {
-    constructor(id, innerHTML, actions) {
+    constructor(id, templateFile, actions) {
         this.rootElement = document.createElement('div');
         this.rootElement.classList.add('ui-layer');
         this.rootElement.id = id;
-        this.rootElement.innerHTML = innerHTML;
+
+        const template = new Template(templateFile);
+        const renderedHTML = template.render();
+        this.rootElement.innerHTML = renderedHTML;
 
         this.actions = actions;
 
