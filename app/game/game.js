@@ -4,7 +4,6 @@
 
 /** Game Engine**/
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { UI, FullscreenUI } from './UI.js';
 import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
@@ -18,23 +17,13 @@ import './base.css';
 // Defines appearance of the loading screen
 import './loading.css';
 
-// Loading Overlay Template
-import loadingScreenHTML from './templates/loading.html?raw';
-
-// Define Loading Overlay
-class LoadingOverlay extends FullscreenUI {
-    constructor() {
-        super('Loading Overlay', loadingScreenHTML, []);
-    }
-}
-
 // import { generateCollisionMap } from './generateCollisionMap.js';
 
 /** GLOBAL **/
-// Page Hook for UI
+// Page attachment point for UI
 const uiWrapper = document.getElementById('ui_wrapper');
 
-// Wrapper for Canvas
+// Page attachment point for HTML5 Canvas
 const canvasWrapper = document.getElementById('canvas_wrapper');
 
 // 3D Rendering Pieces
@@ -45,28 +34,12 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const canvas = renderer.domElement;
 
 
-// User Data classes
-// class Hub {
-//     constructor(userID) {
-//         this.userID = userID;
-//     }
-// }
-
-// class User {
-//     constructor(id, location) {
-//         this.id = id;
-//         this.username = username;
-//         this.location = location;
-//     }
-// }
-
-
-/** GAMEPLAY CONSTANTS **/
-const AVATAR_WALK_SPEED = .5;
-
-// Change Screen function
+// Functions
 function changeScreen(type) {
     if(screen) {
+        console.log('screen object exists.');
+        console.log('screen is:');
+        console.log(screen);
         screen.stop();
         screen.unloadSceneContents();
         if(screen.uis) {
@@ -99,6 +72,26 @@ function changeScreen(type) {
     resetWindowController();
 }
 
+// User Data classes
+// class Hub {
+//     constructor(userID) {
+//         this.userID = userID;
+//     }
+// }
+
+// class User {
+//     constructor(id, location) {
+//         this.id = id;
+//         this.username = username;
+//         this.location = location;
+//     }
+// }
+
+
+/** GAMEPLAY CONSTANTS **/
+const AVATAR_WALK_SPEED = .5;
+
+
 /** Game Definition **/
 // List of all the objects in the game
 import assets from './Assets.js';
@@ -117,7 +110,6 @@ import f_hubEditButtonHTML from './templates/hub-edit-screen-button.js';
 import f_hubEditDoneButtonHTML from './templates/hub-edit-done-button.js';
 
 import f_hubBottomHTML from './templates/hub-bottom.js';
-
 
 // Main app mode, Game & Chatroom
 class GameScreen extends Screen {
@@ -329,4 +321,5 @@ window.addEventListener('resize', function(){
 canvasWrapper.appendChild(canvas);
 
 // Pick screen
+console.log('Right before calling changeScreen function');
 changeScreen('GAME');

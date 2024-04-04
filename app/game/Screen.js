@@ -23,6 +23,7 @@ class LoadingOverlay extends FullscreenUI {
  */
 class Screen {
     constructor(uiWrapper, renderer) {
+        console.log('Inside the constructor for a screen object.');
         this.uiWrapper = uiWrapper;
         this.renderer = renderer;
         this.scene = new THREE.Scene();
@@ -104,7 +105,7 @@ class Screen {
         };
         this.stop = () => {
             cancelAnimationFrame(this.frameId);
-        }
+        };
         this.unloadSceneContents = () => {
             for (let entity of this.sceneContents) {
                 this.scene.remove(entity.model);
