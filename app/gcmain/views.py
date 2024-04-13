@@ -7,7 +7,7 @@ def mainAppView(request):
     context = {};
     context['ASSETS_URL'] = settings.ASSETS_URL
 
-    return render(request, 'gcmain/index.html', context)
+    return render(request, 'gcmain/gcmain.html', context)
 
 @login_required
 def debugPageView(request):
@@ -19,7 +19,3 @@ def debugPageView(request):
 @login_required
 def uiTestView(request):
     return render(request, 'gcmain/ui_test.html')
-
-@login_required
-def cssTestView(request):
-    return render(request, 'gcmain/css_test.html')

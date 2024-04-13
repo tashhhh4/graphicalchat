@@ -7,5 +7,4 @@ urlpatterns = [
     # Test pages
     path('debug/', views.debugPageView, name='debug_page_view'),
     path('ui-test/', views.uiTestView, name='ui_test_view'),
-    path('css-test/', views.cssTestView, name='css_test_view'),
 ]

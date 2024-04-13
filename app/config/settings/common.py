@@ -65,7 +65,9 @@ LOGOUT_REDIRECT_URL = '/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'dist' / 'templates' / 'dist',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,7 +90,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'common' / 'static' / 'common',
     BASE_DIR / 'gclogin' / 'static' / 'gclogin',
     BASE_DIR / 'gcmain' / 'static' / 'gcmain',
-    BASE_DIR / 'gcmain' / 'static' / 'game',
+
+    BASE_DIR / 'dist' / 'static' / 'dist',
 ]
 
 # Assets Config

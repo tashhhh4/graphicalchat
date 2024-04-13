@@ -1,29 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+<head id="head">
   <title>Graphical Chat App</title>
+  <meta charset="utf-8">
   <link rel="shortcut icon" href="{% static 'common/favicon.png' %}" type="image/png">
   <link rel="stylesheet" href="{% static 'common/common.css' %}">
   <link rel="stylesheet" href="{% static 'gcmain/logout.css' %}">
-  <script type="module" crossorigin src="{% static 'game/main/bundle.js' %}"></script>
-  <link rel="stylesheet" crossorigin href="{% static 'game/main/bundle-CCpKex3X.css' %}">
+  <link rel="stylesheet" crossorigin href="{% static 'bundle.css' %}">
+  <script type="module" crossorigin src="{% static 'bundle.js' %}"></script>
 </head>
-<body>
+<body id="body">
 
-  <!-- Optional Helpful Information -->
-  {% block debug %}
-  {% endblock %}
-  
   <!-- WebGL Render -->
   <div id="canvas_wrapper"></div>
 
-  <!-- Floating UI -->
-  <div id="ui_mega_wrapper"></div>
+  <!-- UI -->
+  <div id="ui_wrapper" class="ui-wrapper"></div>
 
-  <!-- Main Script -->
-  
   <!-- Logout Button -->
   <form class="logout-button" action="{% url 'logout' %}" method="post">
     {% csrf_token %}
