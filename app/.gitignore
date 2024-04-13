@@ -6,4 +6,3 @@ gcmain/static/game/assets/*
 .vite/*
 
 node_modules/*
-gcmain/static/game/node_modules/*
