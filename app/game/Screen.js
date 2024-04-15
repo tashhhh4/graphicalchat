@@ -10,7 +10,7 @@ import loadingScreenHTML from './templates/loading.html?raw';
 // Loading Overlay
 class LoadingOverlay extends FullscreenUI {
     constructor() {
-        super('Loading Overlay', loadingScreenHTML, []);
+        super('Loading Overlay', loadingScreenHTML, {}, []);
     }
 }
 
@@ -110,6 +110,7 @@ class Screen {
                 this.scene.remove(entity.model);
             }
         };
-        this.ui = null;
+
+        this.uis = [];
     }
 }

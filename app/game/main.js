@@ -197,16 +197,11 @@ class GameScreen extends Screen {
             this.myAvatar.velocity.speed = 0;
         };
 
-        const editHubActions = [
-            {
-                id: 'edit_hub_button',
-                action: () => changeScreen('HUB')
-            }
-        ];
+        const hubEditButtonActions = {
+            toHubEdit: () => changeScreen('HUB')
+        };
 
-        this.uis = [
-            new UI('main_edit_hub_button', hubEditButtonTemplate, editHubActions)
-        ];
+        this.uis.push(new UI('main_edit_hub_button', hubEditButtonTemplate, {}, hubEditButtonActions));
 
     }    
 }
@@ -254,29 +249,25 @@ class HubEditScreen extends Screen {
         this.data = {
             hub_bases: HUB_BASES
         };
+
+        const hubBottomData = {
+            floors: [
+                {name: 'Green Floor'},
+                {name: 'Irregular Floor'},
+                {name: 'Yellow Desert'},
+            ]
+        };
         
-        const hubBottomActions = [
-            {
-                id: 'hub_base_opts_Green_Floor',
-                action: () => {console.log('You clicked on the Green Floor label.');}
-            },
-            {
-                id: 'hub_base_opts_Irregular_Floor',
-                action: () => {console.log('You clicked on the Irregular Floor label.');}
-            }
-        ];
+        const hubBottomActions = {
+            floorItemClicked: () => console.log('Floor Item Clicked!')
+        };
 
-        const doneButtonActions = [
-            {
-                id: 'done_button',
-                action: () => changeScreen('GAME')
-            }
-        ];
+        const hubDoneActions = {
+            returnToMain: () => changeScreen('GAME')
+        };
 
-        this.uis = [
-            new UI('hub_bottom_bar', hubBottomTemplate, hubBottomActions),
-            new UI('hub_edit_done_button', hubEditDoneButtonTemplate, doneButtonActions),
-        ];
+        this.uis.push(new UI('hub_bottom_bar', hubBottomTemplate, hubBottomData, hubBottomActions));
+        this.uis.push(new UI('hub_edit_done_button', hubEditDoneButtonTemplate, {}, hubDoneActions));
     }
 }
 
@@ -324,4 +315,4 @@ window.addEventListener('resize', function(){
 canvasWrapper.appendChild(canvas);
 
 // Pick screen
-changeScreen('GAME');
+changeScreen('HUB');

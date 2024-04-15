@@ -2,16 +2,16 @@
   <div class="hub-base-opts">
     <div class="h3">Base Model</div>
     <div id="hub_select" class="hub-select">
-      <div id="hub_base_opts_Green_Floor" class="option-bg clickable">
+      {{#floors}}
+      <div class="option-bg clickable" data-action="floorItemClicked">
         <div class="option-border">
-          <div class="option-label">Green Floor</div>
+          <div class="option-label">{{name}}</div>
         </div>
       </div>
-      <div id="hub_base_opts_Irregular_Floor" class="option-bg clickable">
-        <div class="option-border">
-          <div class="option-label">Irregular Floor</div>
-        </div>
-      </div>
+      {{/floors}}
+      {{^floors}}
+      No models found.
+      {{/floors}}
     </div>
   </div>
 </div>

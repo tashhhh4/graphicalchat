@@ -1,27 +1,29 @@
 export { UI, FullscreenUI };
 
-import { Template } from './Template.js';
+import Mustache from 'mustache';
 
 // Rendered HTML in a wrapper div
 class UI {
-    constructor(id, templateFile, actions) {
+    constructor(id, templateFile, data, actions) {
         this.rootElement = document.createElement('div');
         this.rootElement.classList.add('ui-layer');
         this.rootElement.id = id;
 
-        const template = new Template(templateFile);
-        const renderedHTML = template.render();
+        const template = templateFile;
+        const renderedHTML = Mustache.render(template, data);
         this.rootElement.innerHTML = renderedHTML;
 
         this.actions = actions;
 
         this.attachTo = (parent) => {
-            parent.appendChild(this.rootElement);
+            parent.appendChild(this.rootElement);    
 
-            // Wire button actions
-            this.actions.forEach(({id, action}) => {
-                const elem = document.getElementById(id);
-                elem.onclick = action;
+            const clickables = this.rootElement.querySelectorAll('.clickable');
+            clickables.forEach(elem => {
+                const action = elem.dataset.action;
+                if(action) {
+                    elem.onclick = () => this.actions[action]();
+                }
             });
         };
         this.detach = () => {
@@ -31,8 +33,8 @@ class UI {
 }
 
 class FullscreenUI extends UI {
-    constructor(name, html, actions) {
-        super(name, html, actions);
+    constructor(name, html, data, actions) {
+        super(name, html, data, actions);
         this.rootElement.classList.add('fullscreen');
     }
 }
