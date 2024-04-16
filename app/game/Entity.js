@@ -13,15 +13,17 @@ class Entity {
         this.model = null;
         // this.collisionMap = null;
         this.velocity = new Velocity(0, 0);
-        this.move = function() {            
-            const radians = this.velocity.angle * (Math.PI / 180);
-            const speed = this.velocity.speed;
+        this.move = function() {
+            if(this.velocity.speed > 0) {
+                const radians = this.velocity.angle * (Math.PI / 180);
+                const speed = this.velocity.speed;
 
-            const deltaX = Math.sin(radians) * speed;
-            const deltaZ = Math.cos(radians) * speed * -1;
+                const deltaX = Math.sin(radians) * speed;
+                const deltaZ = Math.cos(radians) * speed * -1;
 
-            this.model.position.x += deltaX;
-            this.model.position.z += deltaZ;
+                this.model.position.x += deltaX;
+                this.model.position.z += deltaZ;
+            }
         };
 
         this.load = (scene, onLoad) => {

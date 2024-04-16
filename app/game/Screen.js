@@ -1,7 +1,7 @@
 export { Screen };
 
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Control } from './Control.js';
 import { FullscreenUI } from './UI.js';
 
 // Loading Overlay Template
@@ -25,7 +25,7 @@ class Screen {
     constructor(uiWrapper, renderer) {
         this.scene = new THREE.Scene();
         this.entities = [];
-//        this.controls = [];
+        this.controls = [];
         this.uis = [];
 
         this.uiWrapper = uiWrapper;
@@ -64,7 +64,11 @@ class Screen {
             }
             loadingOverlay.detach();
         };
-        this.updateEntityPositions = () => {};
+        this._updateEntityPositions = () => {
+            for (let entity of this.entities) {
+                entity.move();
+            }
+        };
 
         this.frameId = null;
         this.run = () => {
@@ -72,7 +76,7 @@ class Screen {
                 requestAnimationFrame(this.run);
         
                 // Update entity positions
-                this.updateEntityPositions();
+                this._updateEntityPositions();
         
                 renderer.render(this.scene, this.camera);
             } else {

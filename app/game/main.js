@@ -206,12 +206,6 @@ class GameScreen extends Screen {
             this.myAvatar,
         ];
 
-
-        // Define animation behavior
-        this.updateEntityPositions = () => {
-            this.myAvatar.move();
-        }
-
         const hubEditButtonActions = {
             toHubEdit: () => changeScreen('HUB')
         };
