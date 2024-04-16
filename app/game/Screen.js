@@ -25,20 +25,13 @@ class Screen {
     constructor(uiWrapper, renderer) {
         this.scene = new THREE.Scene();
         this.entities = [];
-        this.controls = [];
+//        this.controls = [];
         this.uis = [];
 
         this.uiWrapper = uiWrapper;
         this.renderer = renderer;
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 
-        this.findEntityByName = (name) => {
-            for (const entity of this.entities) {
-                if (entity.name === name) {
-                    return entity;
-                }
-            }
-        };
         this.loadingStatus = 0;
 
         this.loadEntities = () => {

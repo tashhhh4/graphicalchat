@@ -124,16 +124,6 @@ class GameScreen extends Screen {
         // account environment settings are loaded
         // this.hub_owner = new User(1);
 
-        // List of Entity objects to load
-        // Floor model
-
-        this.entities = [
-            new FloorEntity('Large_Floor', assets.get('Large_Floor')),
-            new CharacterEntity('Stick_Woman', assets.get('Stick_Woman')),
-        ];
-
-        // Player character
-        this.myAvatar = this.findEntityByName('Stick_Woman');
 
         // Lighting
         this.scene.add(new THREE.AmbientLight(0xfefefe));
@@ -145,11 +135,7 @@ class GameScreen extends Screen {
         this.camera.position.x = 0;
         this.camera.rotateX(-0.5);
 
-        // Define animation behavior
-        this.updateEntityPositions = () => {
-            this.myAvatar.move();
-        }
-
+        
         // Behavior upon catching events
         this.handleKeyDown = (event) => {
         
@@ -204,6 +190,22 @@ class GameScreen extends Screen {
         this.handleKeyUp = (event) => {    
             this.myAvatar.velocity.speed = 0;
         };
+
+        // Player character
+        this.myAvatar = new CharacterEntity('Stick_Woman', assets.get('Stick_Woman'));
+        
+        // List of Entity objects to load
+        // Floor model
+        this.entities = [
+            new FloorEntity('Large_Floor', assets.get('Large_Floor')),
+            this.myAvatar,
+        ];
+
+
+        // Define animation behavior
+        this.updateEntityPositions = () => {
+            this.myAvatar.move();
+        }
 
         const hubEditButtonActions = {
             toHubEdit: () => changeScreen('HUB')
