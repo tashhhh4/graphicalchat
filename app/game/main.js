@@ -88,14 +88,12 @@ function changeScreen(type) {
 //     }
 // }
 
+/** Game Definition **/
 
 /** GAMEPLAY CONSTANTS **/
 const AVATAR_WALK_SPEED = .5;
 
-
-/** Game Definition **/
 // Globally available data
-
 // HTML Templates
 import hubEditButtonTemplate from './templates/hub-edit-button.html?raw';
 import hubEditDoneButtonTemplate from './templates/hub-edit-done-button.html?raw';
@@ -105,6 +103,14 @@ import hubBottomTemplate from './templates/hub-bottom.html?raw';
 import assets from './Assets.js';
 import new_assets from './assets.json';
 import items from './items.json';
+const ITEMS = items;
+
+// const Assets = {
+//     _assets: new_assets,
+//     get: (itemName) => {
+//         for (let item of items)
+//     }
+// }
 
 // Hub Base models
 import HUB_BASES from './hub_base_list.js';
@@ -135,7 +141,7 @@ class GameScreen extends Screen {
         this.camera.position.x = 0;
         this.camera.rotateX(-0.5);
 
-        
+
         // Behavior upon catching events
         this.handleKeyDown = (event) => {
         
@@ -247,9 +253,12 @@ class HubEditScreen extends Screen {
         // User
         this.user = getUserData();
 
+        // The floor object to display
+        this.floor = new FloorEntity('Large_Floor', assets.get('Large_Floor'));
+
         // List of Entity objects to load
         this.entities = [
-            new FloorEntity('Large_Floor', assets.get('Large_Floor'))
+            this.floor
         ];
 
         // Lighting
@@ -265,7 +274,22 @@ class HubEditScreen extends Screen {
         };
         
         const hubBottomActions = {
-            floorItemClicked: () => console.log('Floor Item Clicked!')
+            floorItemClicked: (itemName) => {
+                for (let item of ITEMS.floors) {
+                    if (item.name === itemName) {
+                        console.log("this.floor is:");
+                        console.log(this.floor);
+                        this.floor.unload(this.scene);
+
+                        this.floor = new FloorEntity('Irregular_Floor', assets.get('Irregular_Floor'));
+                        console.log("Now this.floor is:");
+                        console.log(this.floor);
+
+                        this.floor.load(this.scene);
+
+                    }
+                }
+            }
         };
 
         const hubDoneActions = {

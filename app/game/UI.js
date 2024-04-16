@@ -22,7 +22,7 @@ class UI {
             clickables.forEach(elem => {
                 const action = elem.dataset.action;
                 if(action) {
-                    elem.onclick = () => this.actions[action]();
+                    elem.onclick = () => this.actions[action](elem.dataset.args);
                 }
             });
         };

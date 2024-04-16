@@ -24,7 +24,7 @@ class Entity {
             this.model.position.z += deltaZ;
         };
 
-        this.load = (scene, callback) => {
+        this.load = (scene, onLoad) => {
             const loader = new GLTFLoader();
             loader.load(
 
@@ -41,7 +41,9 @@ class Entity {
 
                     // Add to scene
                     scene.add(model);
-                    callback();
+
+                    // onLoad behavior for parent caller
+                    if(onLoad) { onLoad(); }
                 },
 
                 // onProgress : Function
