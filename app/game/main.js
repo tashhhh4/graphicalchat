@@ -5,9 +5,10 @@
 /** Game Engine**/
 import * as THREE from 'three';
 
-import { UI } from './UI.js';
-import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
 import { Velocity } from './Velocity.js';
+import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
+import { Control } from './Control.js';
+import { UI } from './UI.js';
 import { Screen } from './Screen.js';
 
 // Environment Variables
@@ -42,6 +43,9 @@ const canvas = renderer.domElement;
 function changeScreen(type) {
     if(screen) {
         screen.stop();
+        screen.controls.forEach(control => {
+            window.removeEventListener(control.type, control.callback);
+        });
         screen.unloadEntities();
         if(screen.uis) {
             for(let ui of screen.uis) {
@@ -64,6 +68,9 @@ function changeScreen(type) {
 
     camera = screen.camera;
     screen.loadEntities();
+    screen.controls.forEach(control => {
+        window.addEventListener(control.type, control.callback);
+    });
     screen.run();
     if(screen.uis) {
         for (let ui of screen.uis) {
@@ -141,7 +148,7 @@ class GameScreen extends Screen {
         this.camera.rotateX(-0.5);
 
 
-        // Behavior upon catching events
+        // Controller functions
         this.handleKeyDown = (event) => {
         
             const keys = Object.keys(pressedKeys);
@@ -195,6 +202,11 @@ class GameScreen extends Screen {
         this.handleKeyUp = (event) => {    
             this.myAvatar.velocity.speed = 0;
         };
+
+        this.controls = [
+            new Control('keydown', this.handleKeyDown),
+            new Control('keyup', this.handleKeyUp)
+        ];
 
         // Player character
         this.myAvatar = new CharacterEntity('Stick_Woman', assets.get('Stick_Woman'));

@@ -1,7 +1,6 @@
 export { Screen };
 
 import * as THREE from 'three';
-import { Control } from './Control.js';
 import { FullscreenUI } from './UI.js';
 
 // Loading Overlay Template
