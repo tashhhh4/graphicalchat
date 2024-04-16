@@ -49,35 +49,17 @@ class Screen {
             const scene = this.scene;
 
             for (const entity of this.entities) {
-                const loader = new GLTFLoader();
-                loader.load(
+                entity.load(
 
-                    // Resource URL
-                    entity.file,
+                    // Pass in the Scene
+                    this.scene,
 
-                    // onLoad : Function
-                    (gltf) => {
-
-                        // Define Entity Object
-                        const model = gltf.scene.children[0];
-                        model.name = entity.name;
-                        entity.model = model;
-                        // const map = generateCollisionMap(model);
-                        // entity.collisionMap = map; 
-
-                        // Add to scene
-                        scene.add(model);
+                    // Called after object loads
+                    () => {
                         countFiles += 1;
                         this.loadingStatus = countFiles / totalFiles * 100;
-                        //this.objectsLoaded = countFiles / this.totalFiles * 100;
                         console.log('Object Loading Progress: ' + this.loadingStatus + '%');
-                    },
-                
-                    // onProgress : Function
-                    undefined,
-
-                    // onError : Function
-                    undefined
+                    }
                 );
             }
             loadingOverlay.detach();
@@ -102,7 +84,7 @@ class Screen {
         };
         this.unloadEntities = () => {
             for (let entity of this.entities) {
-                this.scene.remove(entity.model);
+                entity.unload(this.scene);
             }
         };
     }

@@ -1,6 +1,7 @@
 export { Entity, FloorEntity, CharacterEntity };
 
 import { Velocity } from './Velocity.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // Entity Class
 // Make a new subclass for every thing
@@ -21,7 +22,39 @@ class Entity {
 
             this.model.position.x += deltaX;
             this.model.position.z += deltaZ;
-        }
+        };
+
+        this.load = (scene, callback) => {
+            const loader = new GLTFLoader();
+            loader.load(
+
+                // Resource URL
+                this.file,
+
+                // onLoad : Function
+                (gltf) => {
+
+                    // Define Entity Object
+                    const model = gltf.scene.children[0];
+                    model.name = this.name;
+                    this.model = model;
+
+                    // Add to scene
+                    scene.add(model);
+                    callback();
+                },
+
+                // onProgress : Function
+                undefined,
+                
+                // onError : Function
+                undefined
+            );
+        };
+
+        this.unload = (scene) => {
+            scene.remove(this.model);
+        };
     }
 }
 
