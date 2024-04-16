@@ -23,13 +23,15 @@ class LoadingOverlay extends FullscreenUI {
  */
 class Screen {
     constructor(uiWrapper, renderer) {
+        this.scene = new THREE.Scene();
+        this.entities = [];
+        this.controls = [];
+        this.uis = [];
+
         this.uiWrapper = uiWrapper;
         this.renderer = renderer;
-        this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 
-        // A list of Entity objects.
-        this.entities = [];
         this.findEntityByName = (name) => {
             for (const entity of this.entities) {
                 if (entity.name === name) {
@@ -110,7 +112,5 @@ class Screen {
                 this.scene.remove(entity.model);
             }
         };
-
-        this.uis = [];
     }
 }
