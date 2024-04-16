@@ -28,10 +28,10 @@ class Screen {
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 
-        // sceneContents is a list of Entity objects.
-        this.sceneContents = [];
-        this.findSceneContentsByName = (name) => {
-            for (const entity of this.sceneContents) {
+        // A list of Entity objects.
+        this.entities = [];
+        this.findEntityByName = (name) => {
+            for (const entity of this.entities) {
                 if (entity.name === name) {
                     return entity;
                 }
@@ -39,7 +39,7 @@ class Screen {
         };
         this.loadingStatus = 0;
 
-        this.loadSceneContents = () => {
+        this.loadEntities = () => {
 
             // Create Loading Overlay
             const loadingOverlay = new LoadingOverlay();
@@ -49,11 +49,11 @@ class Screen {
             this.loadingStatus = 0;
 
             let countFiles = 0;
-            const totalFiles = this.sceneContents.length;
+            const totalFiles = this.entities.length;
 
             const scene = this.scene;
 
-            for (const entity of this.sceneContents) {
+            for (const entity of this.entities) {
                 const loader = new GLTFLoader();
                 loader.load(
 
@@ -105,8 +105,8 @@ class Screen {
         this.stop = () => {
             cancelAnimationFrame(this.frameId);
         };
-        this.unloadSceneContents = () => {
-            for (let entity of this.sceneContents) {
+        this.unloadEntities = () => {
+            for (let entity of this.entities) {
                 this.scene.remove(entity.model);
             }
         };

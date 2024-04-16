@@ -10,6 +10,10 @@ import { Entity, FloorEntity, CharacterEntity } from './Entity.js';
 import { Velocity } from './Velocity.js';
 import { Screen } from './Screen.js';
 
+// Environment Variables
+const ASSETS_BASE_URL = import.meta.env.VITE_ASSETS_BASE_URL;
+const ASSETS_URL = ASSETS_BASE_URL + 'assets/';
+
 // Base Stylesheets
 // Makes wrapper elements fill page
 import './base.css';
@@ -38,7 +42,7 @@ const canvas = renderer.domElement;
 function changeScreen(type) {
     if(screen) {
         screen.stop();
-        screen.unloadSceneContents();
+        screen.unloadEntities();
         if(screen.uis) {
             for(let ui of screen.uis) {
                 ui.detach();
@@ -59,7 +63,7 @@ function changeScreen(type) {
     }
 
     camera = screen.camera;
-    screen.loadSceneContents();
+    screen.loadEntities();
     screen.run();
     if(screen.uis) {
         for (let ui of screen.uis) {
@@ -99,6 +103,8 @@ import hubBottomTemplate from './templates/hub-bottom.html?raw';
 
 // List of all the objects in the game
 import assets from './Assets.js';
+import new_assets from './assets.json';
+import items from './items.json';
 
 // Hub Base models
 import HUB_BASES from './hub_base_list.js';
@@ -119,13 +125,15 @@ class GameScreen extends Screen {
         // this.hub_owner = new User(1);
 
         // List of Entity objects to load
-        this.sceneContents = [
+        // Floor model
+
+        this.entities = [
             new FloorEntity('Large_Floor', assets.get('Large_Floor')),
             new CharacterEntity('Stick_Woman', assets.get('Stick_Woman')),
         ];
 
         // Player character
-        this.myAvatar = this.findSceneContentsByName('Stick_Woman');
+        this.myAvatar = this.findEntityByName('Stick_Woman');
 
         // Lighting
         this.scene.add(new THREE.AmbientLight(0xfefefe));
@@ -212,7 +220,7 @@ class AvatarEditScreen extends Screen {
         super(uiWrapper, renderer);
 
         // List of Entity objects to load
-        this.sceneContents = [
+        this.entities = [
             new Entity('Stick_Woman', assets.get('Stick_Woman'))
         ];
 
@@ -238,7 +246,7 @@ class HubEditScreen extends Screen {
         this.user = getUserData();
 
         // List of Entity objects to load
-        this.sceneContents = [
+        this.entities = [
             new FloorEntity('Large_Floor', assets.get('Large_Floor'))
         ];
 
@@ -251,11 +259,7 @@ class HubEditScreen extends Screen {
         };
 
         const hubBottomData = {
-            floors: [
-                {name: 'Green Floor'},
-                {name: 'Irregular Floor'},
-                {name: 'Yellow Desert'},
-            ]
+            floors: items.floors
         };
         
         const hubBottomActions = {

@@ -1,0 +1,7 @@
+{
+    "floors": [
+        { "name": "Light Green Floor", "model": "Large Floor" },
+        { "name": "Irregular Floor", "model": "Irregular Floor"},
+        { "name": "Desert Floor", "model": "Desert Floor"}
+    ]
+}
