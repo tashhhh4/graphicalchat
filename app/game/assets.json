@@ -1,9 +1,9 @@
 {
-    "models": {
-        "Blue Cube": "sad_cube.glb",
-        "Red Cube": "cute_cube_1.obj",
-        "Large Floor": "large_square.glb",
-        "Stick Woman": "stick_woman.glb",
-        "Irregular Floor": "irregular_floor.glb"
-    }
+    "models": [
+        { "name": "Blue Cube",       "file": "sad_cube.glb"},
+        { "name": "Red Cube",        "file": "cute_cube_1.obj"},
+        { "name": "Large Floor",     "file": "large_square.glb"},
+        { "name": "Stick Woman",     "file": "stick_woman.glb"},
+        { "name": "Irregular Floor", "file": "irregular_floor.glb"}
+    ]
 }

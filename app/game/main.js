@@ -101,9 +101,8 @@ import hubBottomTemplate from './templates/hub-bottom.html?raw';
 
 // List of all the objects in the game
 import assets from './Assets.js';
-import new_assets from './assets.json';
-import items from './items.json';
-const ITEMS = items;
+import ASSETS from './assets.json';
+import ITEMS from './items.json';
 
 // const Assets = {
 //     _assets: new_assets,
@@ -270,23 +269,27 @@ class HubEditScreen extends Screen {
         };
 
         const hubBottomData = {
-            floors: items.floors
+            floors: ITEMS.floors
         };
         
         const hubBottomActions = {
             floorItemClicked: (itemName) => {
-                for (let item of ITEMS.floors) {
+
+                // [TODO: Add error checking here]
+                // Find item
+                for (const item of ITEMS.floors) {
                     if (item.name === itemName) {
-                        console.log("this.floor is:");
-                        console.log(this.floor);
-                        this.floor.unload(this.scene);
 
-                        this.floor = new FloorEntity('Irregular_Floor', assets.get('Irregular_Floor'));
-                        console.log("Now this.floor is:");
-                        console.log(this.floor);
+                        // Find associated model
+                        for (const model of ASSETS.models) {
+                            if (model.name === item.model) {
+                                const file = ASSETS_URL + model.file;
 
-                        this.floor.load(this.scene);
-
+                                this.floor.unload(this.scene);
+                                this.floor = new FloorEntity('Irregular_Floor', file);
+                                this.floor.load(this.scene);
+                            }
+                        }
                     }
                 }
             }
