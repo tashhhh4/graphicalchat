@@ -10,9 +10,23 @@ SECRET_KEY=long_awesome_secret_with_lots_of_symbols_and_stuff
 POSTGRES_DB=gcdb
 POSTGRES_NAME=gcdb
 POSTGRES_USER=gcuser
-POSTGRES_PASSWORD=long_cool_password
+POSTGRES_PASSWORD=long_cool_same_password
 ALPHA_PASSWORD=password_from_developer
 EMAIL_PASSWORD=generated_app_password
+EMAIL_HOST=smtp.youremailhost.com
+EMAIL_PORT=[587]
+EMAIL_USER=username@yourdomain.com
+AWS_BUCKET_URL=[url for direct linking from an S3 Object Storage Bucket]
+DB_CLIENT=pg
+DB_HOST=db2
+DB_PORT=5432
+DB_DATABASE=gcdb
+DB_USER=gcuser
+DB_PASSWORD=long_cool_same_password
+KEY=some12345random56789stuff
+SECRET=more02934random23049stuff
+ADMIN_EMAIL=your@email.com
+ADMIN_PASSWORD=local_directus_instance_login_password
 
 ======================================================================
 # SET ENVIRONMENT VARIABLES ON THE PRODUCTION server
