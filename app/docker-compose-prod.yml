@@ -39,6 +39,38 @@ services:
     depends_on:
       - db
 
+  db2:
+    image: postgres
+    volumes:
+      - pg2data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    restart: unless-stopped
+
+  directus:
+    image: directus/directus:10
+    ports:
+      - 8055:8055
+    volumes:
+      - directus_database:/directus/database
+      - directus_uploads:/directus/uploads
+    environment:
+      - KEY
+      - SECRET
+      - DB_CLIENT
+      - DB_HOST
+      - DB_PORT
+      - DB_DATABASE
+      - DB_USER
+      - DB_PASSWORD
+      - ADMIN_EMAIL
+      - ADMIN_PASSWORD
+    depends_on:
+      - db2
+    restart: unless-stopped
+
   caddy:
     image: caddy:2.7.6
     restart: unless-stopped
@@ -54,6 +86,9 @@ services:
 
 volumes:
   pgdata:
+  pg2data:
+  directus_database:
+  directus_uploads:
   caddy_config:
   caddy_data:
     external: true
