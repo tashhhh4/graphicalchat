@@ -29,3 +29,34 @@ services:
       - EMAIL_USER
     depends_on:
       - db
+
+  db2:
+    image: postgres
+    volumes:
+      - ./volumes/postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+
+  directus:
+    image: directus/directus:10
+    ports:
+      - 8055:8055
+    volumes:
+      - ./volumes/directus/database:/directus/database
+      - ./volumes/directus/uploads:/directus/uploads
+    environment:
+      - KEY
+      - SECRET
+      - DB_CLIENT
+      - DB_HOST
+      - DB_PORT
+      - DB_DATABASE
+      - DB_USER
+      - DB_PASSWORD
+      - ADMIN_EMAIL
+      - ADMIN_PASSWORD
+    depends_on:
+      - db2
+    restart: unless-stopped
