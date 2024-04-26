@@ -10,3 +10,7 @@ graphicalchat.app {
 www.graphicalchat.app {
   redir https://graphicalchat.app{uri}
 }
+
+admin.graphicalchat.app {
+  reverse_proxy directus:8055
+}
