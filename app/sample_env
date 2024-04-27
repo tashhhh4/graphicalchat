@@ -27,6 +27,16 @@ KEY=some12345random56789stuff
 SECRET=more02934random23049stuff
 ADMIN_EMAIL=your@email.com
 ADMIN_PASSWORD=local_directus_instance_login_password
+EMAIL_TRANSPORT=smtp
+EMAIL_SMTP_HOST=smtp.host.com
+EMAIL_SMTP_NAME=smtp.host.com
+EMAIL_SMTP_USER=info@yourdomain.com
+EMAIL_SMTP_PASSWORD=very_secure_password
+EMAIL_SMTP_PORT=[587]
+EMAIL_SMTP_SECURE=true
+EMAIL_IGNORE_TLS=false
+EMAIL_FROM=info@yourdomain.com
+PUBLIC_URL=yourdomain.com
 
 ======================================================================
 # SET ENVIRONMENT VARIABLES ON THE PRODUCTION server
@@ -59,3 +69,13 @@ KEY=some12345random56789stuff
 SECRET=more02934random23049stuff
 ADMIN_EMAIL=your@email.com
 ADMIN_PASSWORD=local_directus_instance_login_password
+EMAIL_TRANSPORT=smtp
+EMAIL_SMTP_HOST=smtppro.zoho.eu
+EMAIL_SMTP_NAME=smtppro.zoho.eu
+EMAIL_SMTP_USER=info@graphicalchat.app
+EMAIL_SMTP_PASSWORD=2xwg6DvmLX3k
+EMAIL_SMTP_PORT=587
+EMAIL_SMTP_SECURE=false
+EMAIL_IGNORE_TLS=true
+EMAIL_FROM=info@graphicalchat.app
+PUBLIC_URL=http://localhost:8055
