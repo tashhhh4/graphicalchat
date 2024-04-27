@@ -76,6 +76,7 @@ services:
       - EMAIL_SMTP_SECURE
       - EMAIL_IGNORE_TLS
       - EMAIL_FROM
+      - PUBLIC_URL
     depends_on:
       - db2
     restart: unless-stopped
